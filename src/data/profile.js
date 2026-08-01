@@ -7,7 +7,7 @@ export const profile = {
   firstName: "Maruf",
   role: "Frontend Developer",
   /** The positioning line. Everything on the site should earn this. */
-  positioning: "Frontend developer who thinks like a network engineer.",
+  positioning: "Aspiring network engineer, built on a frontend foundation.",
   tagline:
     "I build fast, accessible React interfaces — and I understand the network they travel over.",
   location: "Dhaka, Bangladesh", // TODO: confirm

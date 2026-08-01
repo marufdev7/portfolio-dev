@@ -1,6 +1,6 @@
 # Portfolio — Md. Maruf Ahmed
 
-Frontend developer who thinks like a network engineer.
+Aspiring network engineer, built on a frontend foundation.
 
 **Live:** https://maruf-ahmed-dev.netlify.app/
 

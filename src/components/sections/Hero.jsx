@@ -34,8 +34,8 @@ export default function Hero() {
           {...rise(0.06)}
           className="mt-5 max-w-[18ch] font-display text-4xl font-semibold leading-[1.08] tracking-tight text-text sm:text-5xl md:text-6xl"
         >
-          Frontend developer who thinks like a{" "}
-          <span className="text-net">network engineer</span>.
+          Aspiring <span className="text-net">network engineer</span>, built on a
+          frontend foundation.
         </motion.h1>
 
         <motion.p {...rise(0.12)} className="mt-6 max-w-[60ch] text-lg leading-relaxed text-muted">
