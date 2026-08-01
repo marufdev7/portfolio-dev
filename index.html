@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Md. Maruf Ahmed — Frontend Developer</title>
+    <meta
+      name="description"
+      content="Md. Maruf Ahmed — frontend developer who thinks like a network engineer. React case studies, a working subnet calculator, a simulated Cisco IOS shell, and an honest CCNA lab log."
+    />
+    <meta name="author" content="Md. Maruf Ahmed" />
+    <meta name="theme-color" content="#0b111c" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Md. Maruf Ahmed — Frontend Developer" />
+    <meta
+      property="og:description"
+      content="Frontend developer who thinks like a network engineer. React projects, real subnetting tools, and a CCNA lab log you can run in the browser."
+    />
+    <meta property="og:site_name" content="Md. Maruf Ahmed" />
+    <meta property="og:image" content="/og-image.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Md. Maruf Ahmed — Frontend Developer" />
+    <meta
+      name="twitter:description"
+      content="Frontend developer who thinks like a network engineer. Try the terminal: subnet 10.0.0.0/24"
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+      Resolve the theme BEFORE first paint so there is no flash (plan §3).
+      Dark is the default; the `light` class is only added when chosen.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var prefersLight =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: light)").matches;
+          var light = stored ? stored === "light" : prefersLight;
+          if (light) document.documentElement.classList.add("light");
+        } catch (e) {
+          /* localStorage blocked — fall through to dark */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

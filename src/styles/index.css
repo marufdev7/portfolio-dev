@@ -1,0 +1,281 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Theme strategy — dark-first.
+   The dark palette lives on :root; `html.light` overrides the same
+   custom properties. Tailwind v4 utilities compile to
+   `color: var(--color-x)`, so a var override re-themes every
+   utility without a single `dark:` variant in the components.
+   `light:` is available below for the rare structural difference.
+   --------------------------------------------------------------- */
+
+@custom-variant light (&:where(.light, .light *));
+
+@theme {
+  /* Surfaces — a navy-slate ramp, not a black-to-grey one. Every step
+     is the same hue at a different depth, so panels read as stacked
+     material instead of as boxes drawn on a void. */
+  --color-bg: #0b111c;
+  --color-surface: #121a28;
+  --color-surface-raise: #1a2434;
+  --color-line: #253247;
+
+  /* Type */
+  --color-text: #e8edf5;
+  --color-muted: #9fb0c6;
+  --color-faint: #6d7f96;
+
+  /* Dual accent — cyan owns DEV surfaces, green owns NETWORK surfaces */
+  --color-accent: #22d3ee;
+  --color-net: #4ade80;
+  --color-warn: #fbbf24;
+  --color-error: #f87171;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Depth tokens. Kept out of @theme because they are composed shadows
+   rather than single values; the `elevate` utilities below read them,
+   and `html.light` swaps the whole stack. */
+:root {
+  /* Ambient page wash — the two accents, barely present */
+  --glow-a: color-mix(in oklab, var(--color-accent) 13%, transparent);
+  --glow-b: color-mix(in oklab, var(--color-net) 10%, transparent);
+  --bg-top: #101a2b;
+
+  --elev-1:
+    0 1px 2px rgb(2 6 16 / 0.5),
+    0 10px 26px -18px rgb(2 6 16 / 0.85);
+  --elev-2:
+    0 2px 6px rgb(2 6 16 / 0.55),
+    0 24px 50px -28px rgb(2 6 16 / 0.95);
+  /* Catches the light on the top edge — the cheapest way to make a
+     dark panel look like it has thickness. */
+  --hairline: inset 0 1px 0 rgb(255 255 255 / 0.05);
+  --sheen: color-mix(in oklab, var(--color-surface-raise) 60%, transparent);
+}
+
+/* Light mode — warm-cool paper, never paper-white. The page sits at
+   #e9edf4 so white cards have something to lift off of. */
+html.light {
+  --color-bg: #e9edf4;
+  --color-surface: #ffffff;
+  --color-surface-raise: #f1f5fa;
+  --color-line: #d5dde8;
+
+  --color-text: #101a2b;
+  --color-muted: #47566b;
+  --color-faint: #5b6b81;
+
+  --color-accent: #0e7490;
+  --color-net: #15803d;
+  --color-warn: #b45309;
+  --color-error: #dc2626;
+
+  --glow-a: color-mix(in oklab, var(--color-accent) 9%, transparent);
+  --glow-b: color-mix(in oklab, var(--color-net) 7%, transparent);
+  --bg-top: #f5f8fc;
+
+  --elev-1:
+    0 1px 2px rgb(16 26 43 / 0.06),
+    0 10px 24px -16px rgb(16 26 43 / 0.18);
+  --elev-2:
+    0 2px 6px rgb(16 26 43 / 0.08),
+    0 24px 46px -26px rgb(16 26 43 / 0.22);
+  --hairline: inset 0 1px 0 rgb(255 255 255 / 0.9);
+  --sheen: color-mix(in oklab, var(--color-surface-raise) 75%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* The page itself is a surface: a vertical fade off the top edge plus
+   two very low-opacity accent washes. Fixed attachment so it behaves
+   like light in the room rather than like a scrolling texture. */
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(1200px 620px at 12% -10%, var(--glow-a), transparent 60%),
+    radial-gradient(1000px 560px at 96% 0%, var(--glow-b), transparent 58%),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--color-bg) 42%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Visible focus for keyboard users — non-negotiable per §10 */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Networking surfaces flip the focus ring to the green accent */
+.net-surface :focus-visible {
+  outline-color: var(--color-net);
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* ---------------------------------------------------------------
+   Circuit / grid motif — the site's only ambient animation (§3).
+   opacity <= 0.06, disabled under prefers-reduced-motion.
+   --------------------------------------------------------------- */
+
+.circuit-grid {
+  background-image:
+    linear-gradient(to right, var(--color-text) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-text) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.05;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 10%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 10%, transparent 75%);
+}
+
+.circuit-grid--net {
+  background-image:
+    linear-gradient(to right, var(--color-net) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-net) 1px, transparent 1px);
+  opacity: 0.06;
+}
+
+/* Dark lines on a light page need a touch more presence than light
+   lines on a dark one. */
+html.light .circuit-grid {
+  opacity: 0.07;
+}
+
+html.light .circuit-grid--net {
+  opacity: 0.08;
+}
+
+@keyframes trace-drift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 48px 48px, 48px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .circuit-grid {
+    animation: trace-drift 40s linear infinite;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Terminal
+   --------------------------------------------------------------- */
+
+/* Blinking block caret */
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.terminal-caret {
+  animation: caret-blink 1.1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-caret {
+    animation: none;
+  }
+}
+
+/* Scrollback: thin, themed, and never a layout-shifting overlay */
+.terminal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+  overscroll-behavior: contain;
+}
+
+.terminal-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-line);
+  border-radius: 4px;
+}
+
+.terminal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Wide IOS tables scroll horizontally rather than wrapping (§6.6) */
+.terminal-pre {
+  white-space: pre;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* ---------------------------------------------------------------
+   Elevation. Two steps only — resting and hovered. Each pairs a
+   contact shadow with a wide ambient one, plus the top hairline, so
+   panels sit on the page instead of being outlined on it.
+   --------------------------------------------------------------- */
+
+@utility elevate {
+  box-shadow: var(--hairline), var(--elev-1);
+}
+
+@utility elevate-2 {
+  box-shadow: var(--hairline), var(--elev-2);
+}
+
+/* Vertical light falloff across a panel's own fill. Pairs with
+   `bg-surface` — it only sets background-image, never the color. */
+@utility panel-sheen {
+  background-image: linear-gradient(180deg, var(--sheen) 0%, transparent 45%);
+}
+
+/* Floating panels: full elevation plus a tinted halo. One utility, so
+   it can't be silently overridden by a bare `elevate-*` beside it. */
+@utility glow-accent {
+  box-shadow:
+    var(--hairline),
+    var(--elev-2),
+    0 0 60px -16px color-mix(in oklab, var(--color-accent) 42%, transparent);
+}
+
+@utility glow-net {
+  box-shadow:
+    var(--hairline),
+    var(--elev-2),
+    0 0 60px -16px color-mix(in oklab, var(--color-net) 42%, transparent);
+}
