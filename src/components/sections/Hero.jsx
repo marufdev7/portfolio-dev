@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { profile, snapshot } from "../../data/profile";
 import Button from "../ui/Button";
+import CountUp from "../ui/CountUp";
 import CircuitGrid from "../layout/CircuitGrid";
 
 /* ---------------------------------------------------------------
@@ -55,13 +56,16 @@ export default function Hero() {
           {...rise(0.24)}
           className="mt-16 grid max-w-2xl grid-cols-3 gap-6 border-t border-line pt-8"
         >
-          {snapshot.map((item) => (
+          {snapshot.map((item, i) => (
             <div key={item.label}>
               <dt className="sr-only">{item.label}</dt>
               <dd>
-                <span className="block font-display text-2xl font-semibold text-text md:text-3xl">
-                  {item.value}
-                </span>
+                <CountUp
+                  value={item.value}
+                  // after the strip's own rise at 0.24, staggered across the three
+                  delay={0.32 + i * 0.08}
+                  className="block font-display text-2xl font-semibold text-text md:text-3xl"
+                />
                 <span className="mt-1 block text-sm text-muted">{item.label}</span>
               </dd>
             </div>
