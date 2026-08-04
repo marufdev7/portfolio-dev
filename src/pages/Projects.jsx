@@ -57,9 +57,9 @@ export default function Projects() {
             {active ? ` using ${active}` : ""}
           </p>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <div className="mt-8 grid auto-rows-fr gap-6 md:grid-cols-2">
             {visible.map((project, i) => (
-              <Reveal key={project.slug} delay={i * 0.05}>
+              <Reveal key={project.slug} delay={i * 0.05} className="flex">
                 <ProjectCard project={project} />
               </Reveal>
             ))}

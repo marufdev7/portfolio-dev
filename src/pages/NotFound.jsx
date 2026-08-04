@@ -33,7 +33,7 @@ export default function NotFound() {
           </>
         }
       >
-        <pre className="terminal-scroll mt-12 overflow-x-auto rounded-lg border border-line bg-surface p-5 font-mono text-xs leading-relaxed text-muted">
+        <pre className="terminal-scroll mt-12 overflow-x-auto overflow-y-hidden rounded-lg border border-line bg-surface p-5 font-mono text-xs leading-relaxed text-muted">
 {`$ traceroute that-page
  1  gateway            0.412 ms   0.388 ms   0.401 ms
  2  edge-router        1.204 ms   1.190 ms   1.233 ms

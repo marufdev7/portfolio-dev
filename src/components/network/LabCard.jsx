@@ -55,7 +55,7 @@ export default function LabCard({ lab }) {
   });
 
   return (
-    <Card tone="net" id={lab.slug} as="article" className="scroll-mt-24 p-6 md:p-8">
+    <Card tone="net" id={lab.slug} as="article" className="p-6 md:p-8">
       <div className="mb-4 flex flex-wrap items-baseline gap-x-4 gap-y-2">
         <span className="font-mono text-sm text-net">lab {lab.id}</span>
         <span className="font-mono text-xs text-faint">{date}</span>

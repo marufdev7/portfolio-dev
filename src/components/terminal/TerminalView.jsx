@@ -47,11 +47,11 @@ export default function TerminalView({
   const [caret, setCaret] = useState(0);
   const [ghost, setGhost] = useState("");
   const [search, setSearch] = useState(null); // { query, skip } while Ctrl+R is active
-  const [pinned, setPinned] = useState(true);
 
   const inputRef = useRef(null);
   const mirrorRef = useRef(null);
   const scrollRef = useRef(null);
+  const pinnedRef = useRef(true);
   const draftRef = useRef("");
   const historyIndexRef = useRef(0);
   const lastTabRef = useRef("");
@@ -64,15 +64,23 @@ export default function TerminalView({
 
   /* ---------- scrollback follows output unless the user scrolled up ---------- */
 
+  /* Pinned-ness is a ref, not state, for two reasons. It drives no
+     markup, and `onScroll` fires at frame rate: as state it re-rendered
+     the entire scrollback on every frame of a flick, which is what made
+     scrolling stutter on a long session. As a ref it also keeps *itself*
+     out of the effect's deps — when it was a dep, scrolling back down
+     into the bottom 24px flipped it true and re-ran the effect mid
+     -gesture, snapping the view to the end and killing the fling. */
   useLayoutEffect(() => {
-    if (!pinned || !scrollRef.current) return;
-    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  }, [blocks, pinned]);
+    const el = scrollRef.current;
+    if (!pinnedRef.current || !el) return;
+    el.scrollTop = el.scrollHeight - el.clientHeight;
+  }, [blocks]);
 
   const onScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
-    setPinned(el.scrollHeight - el.scrollTop - el.clientHeight < 24);
+    pinnedRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 24;
   }, []);
 
   /* ---------- caret + ghost ---------- */
@@ -110,11 +118,15 @@ export default function TerminalView({
     // Don't steal focus mid-selection — copying output is a normal thing to want.
     if (event && !window.getSelection()?.isCollapsed) return;
     if (event?.target?.closest?.("a,button")) return;
-    inputRef.current?.focus();
+    // preventScroll: the input sits at the end of the scrollback, so the
+    // default "scroll the focused element into view" drags the reader to
+    // the bottom — and, because the scrollback is nested, the page with
+    // it. The pin effect above is what decides when we follow output.
+    inputRef.current?.focus({ preventScroll: true });
   }, []);
 
   useEffect(() => {
-    if (autoFocus) inputRef.current?.focus();
+    if (autoFocus) inputRef.current?.focus({ preventScroll: true });
   }, [autoFocus]);
 
   /* ---------- submit ---------- */
@@ -126,7 +138,7 @@ export default function TerminalView({
       draftRef.current = "";
       historyIndexRef.current = 0;
       lastTabRef.current = "";
-      setPinned(true);
+      pinnedRef.current = true;
       await run(line);
     },
     [run]
@@ -136,7 +148,7 @@ export default function TerminalView({
     (chip) => {
       setValue(chip);
       draftRef.current = chip;
-      inputRef.current?.focus();
+      inputRef.current?.focus({ preventScroll: true });
       requestAnimationFrame(() => {
         const el = inputRef.current;
         if (el) el.setSelectionRange(chip.length, chip.length);
@@ -333,17 +345,33 @@ export default function TerminalView({
   const after = value.slice(caret + 1);
   const searchHit = search ? reverseSearch(history, search.query, search.skip) : null;
 
+  /* Height belongs on the *panel*, not on the scrollback. Putting it on
+     the scrollback looked equivalent and was not: `flex-1` computes to
+     `flex: 1 1 0%`, and a zero flex-basis in an auto-height column
+     container overrides the height property outright, so the scrollback
+     used its content height instead — 4400px after a few commands. The
+     panel grew forever, nothing ever scrolled inside it, and because the
+     element is still `overflow-y: auto` with `overscroll-behavior:
+     contain` it became a scroll container with nothing to scroll that
+     also refused to hand the wheel to the page. A dead zone that grew
+     with every command. The panel is what has a size; the scrollback
+     takes what's left (`min-h-0` lets it shrink below its content). */
   const heights = {
     embedded: "h-[24rem] md:h-[30rem]",
     full: "h-[calc(100vh-13rem)] min-h-[24rem]",
     overlay: "h-[60vh] max-h-[34rem]",
   };
 
+  // The embedded terminal is a panel in an article: reaching its last
+  // line should hand the wheel back to the page. The other two are the
+  // thing you are reading, so they keep it (§6.1).
+  const chaining = variant === "embedded" ? "" : "terminal-trap";
+
   return (
     <div
       className={
         "net-surface elevate flex flex-col overflow-hidden rounded-lg border border-line bg-surface " +
-        `font-mono text-[0.9375rem] leading-6 focus-within:border-net/40 ${className}`
+        `font-mono text-[0.9375rem] leading-6 focus-within:border-net/40 ${heights[variant]} ${className}`
       }
     >
       {/* Title bar — the one piece of skeuomorphism, and it earns its
@@ -372,7 +400,7 @@ export default function TerminalView({
         ref={scrollRef}
         onScroll={onScroll}
         onClick={focusInput}
-        className={`terminal-scroll flex-1 overflow-y-auto px-3 py-3 sm:px-4 ${heights[variant]}`}
+        className={`terminal-scroll ${chaining} min-h-0 flex-1 overflow-y-auto px-3 py-3 sm:px-4`}
       >
         <p className="sr-only" id="terminal-help">
           Interactive terminal. Type a command and press Enter. Press Tab to complete, up and down
@@ -444,7 +472,7 @@ export default function TerminalView({
 
       {/* Command chips — the difference between usable and unusable on
           a phone (§6.6). Hidden on pointer-first widths. */}
-      <div className="terminal-scroll flex gap-2 overflow-x-auto border-t border-line bg-surface-raise px-3 py-2 sm:hidden">
+      <div className="terminal-scroll flex gap-2 overflow-x-auto overflow-y-hidden border-t border-line bg-surface-raise px-3 py-2 sm:hidden">
         {CHIPS.map((chip) => (
           <button
             key={chip}

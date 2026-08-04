@@ -71,7 +71,7 @@ export default function NetworkNotes() {
 
           <div className="min-w-0 space-y-16">
             {noteSections.map((section) => (
-              <Reveal key={section.id} as="section" id={section.id} className="scroll-mt-24">
+              <Reveal key={section.id} as="section" id={section.id}>
                 <h2 className="font-display text-2xl font-semibold tracking-tight text-text">
                   {section.title}
                 </h2>

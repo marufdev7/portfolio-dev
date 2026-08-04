@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { table as alignTable, keyValue as alignPairs } from "../lib/format";
 
@@ -76,9 +77,15 @@ function LinkBlock({ label, href, internal }) {
 }
 
 /**
+ * Blocks are immutable once printed — a new one is appended, an old one
+ * is never edited — so a memo on identity is exact, never stale. Without
+ * it every keystroke in the input re-rendered the whole scrollback,
+ * including `alignTable` over every table on screen, and a long session
+ * scrolled visibly worse than a short one.
+ *
  * @param {{block: import('./output').OutputBlock}} props
  */
-export function Block({ block }) {
+export const Block = memo(function Block({ block }) {
   const { kind, content, meta } = block;
 
   switch (kind) {
@@ -134,7 +141,7 @@ export function Block({ block }) {
       return <div className={`whitespace-pre-wrap break-words ${tone}`}>{inline(value)}</div>;
     }
   }
-}
+});
 
 /** Convenience for tests and for the non-terminal fallbacks. */
 export function blockToText(block) {

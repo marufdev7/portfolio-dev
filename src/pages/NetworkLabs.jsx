@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Seo from "../components/layout/Seo";
 import PageShell from "../components/layout/PageShell";
@@ -6,6 +6,7 @@ import Tag from "../components/ui/Tag";
 import Reveal from "../components/ui/Reveal";
 import LabCard from "../components/network/LabCard";
 import { labTopics, labs } from "../data/labs";
+import { scrollToHash } from "../lib/scroll";
 
 /* ---------------------------------------------------------------
    The lab log (§7). Filter state lives in the URL like /projects, so
@@ -15,6 +16,10 @@ import { labTopics, labs } from "../data/labs";
    the chunk mounts, ScrollToTop has already looked for `#02-static-
    routing` and found nothing. Re-running it here is what makes a link
    from /network land on the right card.
+
+   It runs on mount only. ScrollToTop owns every later hash change —
+   the element exists by then, and re-running this would cut its smooth
+   pan short with a jump.
    --------------------------------------------------------------- */
 
 export default function NetworkLabs() {
@@ -24,10 +29,10 @@ export default function NetworkLabs() {
 
   const visible = active ? labs.filter((lab) => lab.topics.includes(active)) : labs;
 
+  const deepLink = useRef(hash);
   useEffect(() => {
-    if (!hash) return;
-    document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
-  }, [hash]);
+    if (deepLink.current) scrollToHash(deepLink.current, { smooth: false });
+  }, []);
 
   const setTopic = (topic) => {
     const next = new URLSearchParams(params);

@@ -15,7 +15,7 @@ import Tag from "../ui/Tag";
 /** @param {{project: import('../../data/projects').Project}} props */
 export default function ProjectCard({ project }) {
   return (
-    <Card interactive className="group relative flex flex-col p-6">
+    <Card interactive className="group relative flex h-full w-full min-w-0 flex-col p-6">
       <div className="mb-3 flex items-baseline justify-between gap-4">
         <h3 className="font-display text-xl font-semibold tracking-tight text-text">
           <Link to={`/projects/${project.slug}`} className="after:absolute after:inset-0">
@@ -40,8 +40,14 @@ export default function ProjectCard({ project }) {
       </div>
 
       <div className="mt-auto flex items-center gap-4 pt-2 text-sm">
-        <span className="text-accent transition-colors group-hover:brightness-110">
-          Read case study →
+        <span className="text-accent transition-[color,filter] duration-300 group-hover:brightness-110">
+          Read case study{" "}
+          <span
+            aria-hidden="true"
+            className="inline-block transition-transform duration-300 ease-[cubic-bezier(0.21,0.65,0.35,1)] motion-safe:group-hover:translate-x-1 motion-safe:group-focus-within:translate-x-1"
+          >
+            →
+          </span>
         </span>
         <span className="ml-auto flex items-center gap-3">
           <a

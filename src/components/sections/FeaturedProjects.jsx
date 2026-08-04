@@ -13,9 +13,9 @@ export default function FeaturedProjects() {
         title="Things I built and can defend"
         lead="Three projects with the decisions written down — what broke, what I changed, and what it measured afterwards."
       >
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid auto-rows-fr gap-6 md:grid-cols-2">
           {featuredProjects.map((project, i) => (
-            <Reveal key={project.slug} delay={i * 0.06}>
+            <Reveal key={project.slug} delay={i * 0.06} className="flex">
               <ProjectCard project={project} />
             </Reveal>
           ))}

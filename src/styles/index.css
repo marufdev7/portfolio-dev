@@ -31,6 +31,15 @@
   --color-warn: #fbbf24;
   --color-error: #f87171;
 
+  /* Solid fills. The accents above are tuned for text, hairlines and
+     tints on a dark page; poured across a whole button they glare.
+     `-solid` is the same hue pulled down to ~6:1 against the label
+     colour — a filled button then reads as a surface rather than as a
+     light source. Light mode has no glare problem and re-points these
+     at the base accents below. */
+  --color-accent-solid: #14a3bf;
+  --color-net-solid: #35a35f;
+
   --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -74,6 +83,11 @@ html.light {
   --color-warn: #b45309;
   --color-error: #dc2626;
 
+  /* Already dark enough to carry white-ish label text — no separate
+     solid ramp needed here. */
+  --color-accent-solid: var(--color-accent);
+  --color-net-solid: var(--color-net);
+
   --glow-a: color-mix(in oklab, var(--color-accent) 9%, transparent);
   --glow-b: color-mix(in oklab, var(--color-net) 7%, transparent);
   --bg-top: #f5f8fc;
@@ -88,8 +102,15 @@ html.light {
   --sheen: color-mix(in oklab, var(--color-surface-raise) 75%, transparent);
 }
 
+/* Native fragment navigation (the skip link, `#after-terminal`) scrolls
+   smoothly; JS scrolls opt in explicitly via lib/scroll, which passes
+   `behavior: "instant"` when it wants a cut. `scroll-padding-top` keeps
+   every anchor target clear of the sticky h-16 navbar — it applies to
+   the scrollport once, instead of a `scroll-mt-*` per target. Keep the
+   80px in sync with SCROLL_OFFSET in lib/scroll.js. */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
   background-color: var(--color-bg);
   color-scheme: dark;
 }
@@ -139,9 +160,9 @@ body {
   outline-color: var(--color-net);
 }
 
-section[id] {
-  scroll-margin-top: 5rem;
-}
+/* No per-target `scroll-margin-top` anywhere: `scroll-padding-top` on
+   the scrollport above already offsets every anchor, and the two would
+   stack into a 10rem gap. */
 
 /* ---------------------------------------------------------------
    Circuit / grid motif — the site's only ambient animation (§3).
@@ -216,10 +237,21 @@ html.light .circuit-grid--net {
   }
 }
 
-/* Scrollback: thin, themed, and never a layout-shifting overlay */
+/* Scrollback: thin, themed, and never a layout-shifting overlay.
+   Styling only — `.terminal-scroll` is worn by every <pre> and table on
+   the site, so anything behavioural here leaks far beyond the terminal. */
 .terminal-scroll {
   scrollbar-width: thin;
   scrollbar-color: var(--color-line) transparent;
+}
+
+/* Swallow the wheel at the ends instead of chaining to the page. Right
+   for the full-screen and overlay terminals, which are the thing you
+   are reading; wrong for anything embedded in a page, where it reads as
+   the page having jammed under the cursor. Notably wrong on a `<pre>`:
+   `overflow-x: auto` computes `overflow-y` to `auto` too, so every code
+   block became a scrollport that ate vertical scroll it never used. */
+.terminal-trap {
   overscroll-behavior: contain;
 }
 
@@ -237,10 +269,20 @@ html.light .circuit-grid--net {
   background: transparent;
 }
 
-/* Wide IOS tables scroll horizontally rather than wrapping (§6.6) */
+/* Wide IOS tables scroll horizontally rather than wrapping (§6.6).
+   `overflow-y: hidden` is load-bearing, not decoration: setting only
+   `overflow-x` leaves the other axis computing from `visible` to `auto`
+   (CSS Overflow §3), which quietly makes every one of these blocks a
+   *vertical* scrollport nested in the terminal scrollback. A wheel
+   gesture starting over one latches to it, finds nothing to scroll, and
+   stalls — the scrollback appears to jam, and the more output on screen
+   the more often it happens. Pinning the axis to `hidden` keeps the
+   sideways scroll and hands vertical straight to the scrollback.
+   Nothing is clipped: these blocks have no height constraint. */
 .terminal-pre {
   white-space: pre;
   overflow-x: auto;
+  overflow-y: hidden;
   overscroll-behavior-x: contain;
 }
 
