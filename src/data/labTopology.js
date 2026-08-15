@@ -63,330 +63,330 @@ export const topologyAscii = `
 
 /** @type {Device[]} */
 export const devices = [
-  {
-    hostname: "R1",
-    kind: "router",
-    model: "CISCO2911/K9",
-    iosVersion: "15.1(4)M4",
-    uptime: "3 weeks, 2 days, 7 hours, 41 minutes",
-    serial: "FTX1524A0NM",
-    interfaces: [
-      {
-        name: "GigabitEthernet0/0",
-        ip: "unassigned",
-        mask: "",
-        status: "up",
-        protocol: "up",
-        description: "802.1Q trunk to SW1 Gi0/1",
-        mac: "0060.5C7B.1A01",
-      },
-      {
-        name: "GigabitEthernet0/0.10",
-        ip: "192.168.10.1",
-        mask: "255.255.255.0",
-        status: "up",
-        protocol: "up",
-        description: "VLAN 10 Users gateway",
-        vlan: 10,
-      },
-      {
-        name: "GigabitEthernet0/0.20",
-        ip: "192.168.20.1",
-        mask: "255.255.255.0",
-        status: "up",
-        protocol: "up",
-        description: "VLAN 20 Servers gateway",
-        vlan: 20,
-      },
-      {
-        name: "GigabitEthernet0/0.30",
-        ip: "192.168.30.1",
-        mask: "255.255.255.0",
-        status: "up",
-        protocol: "up",
-        description: "VLAN 30 Mgmt gateway",
-        vlan: 30,
-      },
-      {
-        name: "GigabitEthernet0/1",
-        ip: "10.0.0.1",
-        mask: "255.255.255.252",
-        status: "up",
-        protocol: "up",
-        description: "P2P to R2 Gi0/0 — OSPF area 0",
-        mac: "0060.5C7B.1A02",
-      },
-      {
-        name: "GigabitEthernet0/2",
-        ip: "unassigned",
-        mask: "",
-        status: "administratively down",
-        protocol: "down",
-        mac: "0060.5C7B.1A03",
-      },
-      {
-        name: "Loopback0",
-        ip: "1.1.1.1",
-        mask: "255.255.255.255",
-        status: "up",
-        protocol: "up",
-        description: "OSPF router-id",
-      },
-    ],
-  },
-  {
-    hostname: "R2",
-    kind: "router",
-    model: "CISCO2911/K9",
-    iosVersion: "15.1(4)M4",
-    uptime: "3 weeks, 2 days, 7 hours, 39 minutes",
-    serial: "FTX1524A0NP",
-    interfaces: [
-      {
-        name: "GigabitEthernet0/0",
-        ip: "10.0.0.2",
-        mask: "255.255.255.252",
-        status: "up",
-        protocol: "up",
-        description: "P2P to R1 Gi0/1 — OSPF area 0",
-        mac: "0060.5C7B.2B01",
-      },
-      {
-        name: "GigabitEthernet0/1",
-        ip: "203.0.113.2",
-        mask: "255.255.255.252",
-        status: "up",
-        protocol: "up",
-        description: "ISP uplink — NAT outside",
-        mac: "0060.5C7B.2B02",
-      },
-      {
-        name: "GigabitEthernet0/2",
-        ip: "unassigned",
-        mask: "",
-        status: "administratively down",
-        protocol: "down",
-        mac: "0060.5C7B.2B03",
-      },
-      {
-        name: "Loopback0",
-        ip: "2.2.2.2",
-        mask: "255.255.255.255",
-        status: "up",
-        protocol: "up",
-        description: "OSPF router-id",
-      },
-    ],
-  },
-  {
-    hostname: "SW1",
-    kind: "switch",
-    model: "WS-C2960-24TT-L",
-    iosVersion: "15.0(2)SE4",
-    uptime: "3 weeks, 2 days, 7 hours, 44 minutes",
-    serial: "FOC1533X0X7",
-    interfaces: [
-      {
-        name: "FastEthernet0/1",
-        ip: "unassigned",
-        mask: "",
-        status: "up",
-        protocol: "up",
-        description: "PC1",
-        vlan: 10,
-        switchportMode: "access",
-      },
-      {
-        name: "FastEthernet0/2",
-        ip: "unassigned",
-        mask: "",
-        status: "up",
-        protocol: "up",
-        description: "SRV1",
-        vlan: 20,
-        switchportMode: "access",
-      },
-      {
-        name: "FastEthernet0/3",
-        ip: "unassigned",
-        mask: "",
-        status: "down",
-        protocol: "down",
-        vlan: 10,
-        switchportMode: "access",
-      },
-      {
-        name: "GigabitEthernet0/1",
-        ip: "unassigned",
-        mask: "",
-        status: "up",
-        protocol: "up",
-        description: "Trunk to R1 Gi0/0",
-        switchportMode: "trunk",
-      },
-      {
-        name: "GigabitEthernet0/2",
-        ip: "unassigned",
-        mask: "",
-        status: "up",
-        protocol: "up",
-        description: "Trunk to SW2 Gi0/1",
-        switchportMode: "trunk",
-      },
-      {
-        name: "Vlan30",
-        ip: "192.168.30.11",
-        mask: "255.255.255.0",
-        status: "up",
-        protocol: "up",
-        description: "Management SVI",
-      },
-    ],
-  },
-  {
-    hostname: "SW2",
-    kind: "switch",
-    model: "WS-C2960-24TT-L",
-    iosVersion: "15.0(2)SE4",
-    uptime: "3 weeks, 2 days, 7 hours, 44 minutes",
-    serial: "FOC1533X0X9",
-    interfaces: [
-      {
-        name: "FastEthernet0/1",
-        ip: "unassigned",
-        mask: "",
-        status: "up",
-        protocol: "up",
-        description: "PC2",
-        vlan: 10,
-        switchportMode: "access",
-      },
-      {
-        name: "GigabitEthernet0/1",
-        ip: "unassigned",
-        mask: "",
-        status: "up",
-        protocol: "up",
-        description: "Trunk to SW1 Gi0/2",
-        switchportMode: "trunk",
-      },
-      {
-        name: "Vlan30",
-        ip: "192.168.30.12",
-        mask: "255.255.255.0",
-        status: "up",
-        protocol: "up",
-        description: "Management SVI",
-      },
-    ],
-  },
+    {
+        hostname: "R1",
+        kind: "router",
+        model: "CISCO2911/K9",
+        iosVersion: "15.1(4)M4",
+        uptime: "3 weeks, 2 days, 7 hours, 41 minutes",
+        serial: "FTX1524A0NM",
+        interfaces: [
+            {
+                name: "GigabitEthernet0/0",
+                ip: "unassigned",
+                mask: "",
+                status: "up",
+                protocol: "up",
+                description: "802.1Q trunk to SW1 Gi0/1",
+                mac: "0060.5C7B.1A01",
+            },
+            {
+                name: "GigabitEthernet0/0.10",
+                ip: "192.168.10.1",
+                mask: "255.255.255.0",
+                status: "up",
+                protocol: "up",
+                description: "VLAN 10 Users gateway",
+                vlan: 10,
+            },
+            {
+                name: "GigabitEthernet0/0.20",
+                ip: "192.168.20.1",
+                mask: "255.255.255.0",
+                status: "up",
+                protocol: "up",
+                description: "VLAN 20 Servers gateway",
+                vlan: 20,
+            },
+            {
+                name: "GigabitEthernet0/0.30",
+                ip: "192.168.30.1",
+                mask: "255.255.255.0",
+                status: "up",
+                protocol: "up",
+                description: "VLAN 30 Mgmt gateway",
+                vlan: 30,
+            },
+            {
+                name: "GigabitEthernet0/1",
+                ip: "10.0.0.1",
+                mask: "255.255.255.252",
+                status: "up",
+                protocol: "up",
+                description: "P2P to R2 Gi0/0 — OSPF area 0",
+                mac: "0060.5C7B.1A02",
+            },
+            {
+                name: "GigabitEthernet0/2",
+                ip: "unassigned",
+                mask: "",
+                status: "administratively down",
+                protocol: "down",
+                mac: "0060.5C7B.1A03",
+            },
+            {
+                name: "Loopback0",
+                ip: "1.1.1.1",
+                mask: "255.255.255.255",
+                status: "up",
+                protocol: "up",
+                description: "OSPF router-id",
+            },
+        ],
+    },
+    {
+        hostname: "R2",
+        kind: "router",
+        model: "CISCO2911/K9",
+        iosVersion: "15.1(4)M4",
+        uptime: "3 weeks, 2 days, 7 hours, 39 minutes",
+        serial: "FTX1524A0NP",
+        interfaces: [
+            {
+                name: "GigabitEthernet0/0",
+                ip: "10.0.0.2",
+                mask: "255.255.255.252",
+                status: "up",
+                protocol: "up",
+                description: "P2P to R1 Gi0/1 — OSPF area 0",
+                mac: "0060.5C7B.2B01",
+            },
+            {
+                name: "GigabitEthernet0/1",
+                ip: "203.0.113.2",
+                mask: "255.255.255.252",
+                status: "up",
+                protocol: "up",
+                description: "ISP uplink — NAT outside",
+                mac: "0060.5C7B.2B02",
+            },
+            {
+                name: "GigabitEthernet0/2",
+                ip: "unassigned",
+                mask: "",
+                status: "administratively down",
+                protocol: "down",
+                mac: "0060.5C7B.2B03",
+            },
+            {
+                name: "Loopback0",
+                ip: "2.2.2.2",
+                mask: "255.255.255.255",
+                status: "up",
+                protocol: "up",
+                description: "OSPF router-id",
+            },
+        ],
+    },
+    {
+        hostname: "SW1",
+        kind: "switch",
+        model: "WS-C2960-24TT-L",
+        iosVersion: "15.0(2)SE4",
+        uptime: "3 weeks, 2 days, 7 hours, 44 minutes",
+        serial: "FOC1533X0X7",
+        interfaces: [
+            {
+                name: "FastEthernet0/1",
+                ip: "unassigned",
+                mask: "",
+                status: "up",
+                protocol: "up",
+                description: "PC1",
+                vlan: 10,
+                switchportMode: "access",
+            },
+            {
+                name: "FastEthernet0/2",
+                ip: "unassigned",
+                mask: "",
+                status: "up",
+                protocol: "up",
+                description: "SRV1",
+                vlan: 20,
+                switchportMode: "access",
+            },
+            {
+                name: "FastEthernet0/3",
+                ip: "unassigned",
+                mask: "",
+                status: "down",
+                protocol: "down",
+                vlan: 10,
+                switchportMode: "access",
+            },
+            {
+                name: "GigabitEthernet0/1",
+                ip: "unassigned",
+                mask: "",
+                status: "up",
+                protocol: "up",
+                description: "Trunk to R1 Gi0/0",
+                switchportMode: "trunk",
+            },
+            {
+                name: "GigabitEthernet0/2",
+                ip: "unassigned",
+                mask: "",
+                status: "up",
+                protocol: "up",
+                description: "Trunk to SW2 Gi0/1",
+                switchportMode: "trunk",
+            },
+            {
+                name: "Vlan30",
+                ip: "192.168.30.11",
+                mask: "255.255.255.0",
+                status: "up",
+                protocol: "up",
+                description: "Management SVI",
+            },
+        ],
+    },
+    {
+        hostname: "SW2",
+        kind: "switch",
+        model: "WS-C2960-24TT-L",
+        iosVersion: "15.0(2)SE4",
+        uptime: "3 weeks, 2 days, 7 hours, 44 minutes",
+        serial: "FOC1533X0X9",
+        interfaces: [
+            {
+                name: "FastEthernet0/1",
+                ip: "unassigned",
+                mask: "",
+                status: "up",
+                protocol: "up",
+                description: "PC2",
+                vlan: 10,
+                switchportMode: "access",
+            },
+            {
+                name: "GigabitEthernet0/1",
+                ip: "unassigned",
+                mask: "",
+                status: "up",
+                protocol: "up",
+                description: "Trunk to SW1 Gi0/2",
+                switchportMode: "trunk",
+            },
+            {
+                name: "Vlan30",
+                ip: "192.168.30.12",
+                mask: "255.255.255.0",
+                status: "up",
+                protocol: "up",
+                description: "Management SVI",
+            },
+        ],
+    },
 ];
 
 /** VLAN database as `show vlan brief` reports it. */
 export const vlans = [
-  {
-    id: 1,
-    name: "default",
-    status: "active",
-    ports: ["Fa0/4", "Fa0/5", "Fa0/6", "Fa0/7", "Fa0/8"],
-  },
-  { id: 10, name: "USERS", status: "active", ports: ["Fa0/1", "Fa0/3"] },
-  { id: 20, name: "SERVERS", status: "active", ports: ["Fa0/2"] },
-  { id: 30, name: "MGMT", status: "active", ports: [] },
-  { id: 999, name: "PARKING-LOT", status: "active", ports: [] },
+    {
+        id: 1,
+        name: "default",
+        status: "active",
+        ports: ["Fa0/4", "Fa0/5", "Fa0/6", "Fa0/7", "Fa0/8"],
+    },
+    { id: 10, name: "USERS", status: "active", ports: ["Fa0/1", "Fa0/3"] },
+    { id: 20, name: "SERVERS", status: "active", ports: ["Fa0/2"] },
+    { id: 30, name: "MGMT", status: "active", ports: [] },
+    { id: 999, name: "PARKING-LOT", status: "active", ports: [] },
 ];
 
 /** `show ip route` per device. */
 export const routeTables = {
-  R1: [
-    { code: "O", proto: "ospf", network: "2.2.2.2/32", metric: "110/2", via: "10.0.0.2", iface: "GigabitEthernet0/1", age: "3w2d" },
-    { code: "C", proto: "connected", network: "1.1.1.1/32", iface: "Loopback0" },
-    { code: "C", proto: "connected", network: "10.0.0.0/30", iface: "GigabitEthernet0/1" },
-    { code: "L", proto: "local", network: "10.0.0.1/32", iface: "GigabitEthernet0/1" },
-    { code: "C", proto: "connected", network: "192.168.10.0/24", iface: "GigabitEthernet0/0.10" },
-    { code: "L", proto: "local", network: "192.168.10.1/32", iface: "GigabitEthernet0/0.10" },
-    { code: "C", proto: "connected", network: "192.168.20.0/24", iface: "GigabitEthernet0/0.20" },
-    { code: "L", proto: "local", network: "192.168.20.1/32", iface: "GigabitEthernet0/0.20" },
-    { code: "C", proto: "connected", network: "192.168.30.0/24", iface: "GigabitEthernet0/0.30" },
-    { code: "L", proto: "local", network: "192.168.30.1/32", iface: "GigabitEthernet0/0.30" },
-    { code: "O*E2", proto: "ospf-external", network: "0.0.0.0/0", metric: "110/1", via: "10.0.0.2", iface: "GigabitEthernet0/1", age: "3w2d" },
-  ],
-  R2: [
-    { code: "O", proto: "ospf", network: "1.1.1.1/32", metric: "110/2", via: "10.0.0.1", iface: "GigabitEthernet0/0", age: "3w2d" },
-    { code: "C", proto: "connected", network: "2.2.2.2/32", iface: "Loopback0" },
-    { code: "C", proto: "connected", network: "10.0.0.0/30", iface: "GigabitEthernet0/0" },
-    { code: "L", proto: "local", network: "10.0.0.2/32", iface: "GigabitEthernet0/0" },
-    { code: "O", proto: "ospf", network: "192.168.10.0/24", metric: "110/2", via: "10.0.0.1", iface: "GigabitEthernet0/0", age: "3w2d" },
-    { code: "O", proto: "ospf", network: "192.168.20.0/24", metric: "110/2", via: "10.0.0.1", iface: "GigabitEthernet0/0", age: "3w2d" },
-    { code: "O", proto: "ospf", network: "192.168.30.0/24", metric: "110/2", via: "10.0.0.1", iface: "GigabitEthernet0/0", age: "3w2d" },
-    { code: "C", proto: "connected", network: "203.0.113.0/30", iface: "GigabitEthernet0/1" },
-    { code: "L", proto: "local", network: "203.0.113.2/32", iface: "GigabitEthernet0/1" },
-    { code: "S*", proto: "static", network: "0.0.0.0/0", via: "203.0.113.1" },
-  ],
+    R1: [
+        { code: "O", proto: "ospf", network: "2.2.2.2/32", metric: "110/2", via: "10.0.0.2", iface: "GigabitEthernet0/1", age: "3w2d" },
+        { code: "C", proto: "connected", network: "1.1.1.1/32", iface: "Loopback0" },
+        { code: "C", proto: "connected", network: "10.0.0.0/30", iface: "GigabitEthernet0/1" },
+        { code: "L", proto: "local", network: "10.0.0.1/32", iface: "GigabitEthernet0/1" },
+        { code: "C", proto: "connected", network: "192.168.10.0/24", iface: "GigabitEthernet0/0.10" },
+        { code: "L", proto: "local", network: "192.168.10.1/32", iface: "GigabitEthernet0/0.10" },
+        { code: "C", proto: "connected", network: "192.168.20.0/24", iface: "GigabitEthernet0/0.20" },
+        { code: "L", proto: "local", network: "192.168.20.1/32", iface: "GigabitEthernet0/0.20" },
+        { code: "C", proto: "connected", network: "192.168.30.0/24", iface: "GigabitEthernet0/0.30" },
+        { code: "L", proto: "local", network: "192.168.30.1/32", iface: "GigabitEthernet0/0.30" },
+        { code: "O*E2", proto: "ospf-external", network: "0.0.0.0/0", metric: "110/1", via: "10.0.0.2", iface: "GigabitEthernet0/1", age: "3w2d" },
+    ],
+    R2: [
+        { code: "O", proto: "ospf", network: "1.1.1.1/32", metric: "110/2", via: "10.0.0.1", iface: "GigabitEthernet0/0", age: "3w2d" },
+        { code: "C", proto: "connected", network: "2.2.2.2/32", iface: "Loopback0" },
+        { code: "C", proto: "connected", network: "10.0.0.0/30", iface: "GigabitEthernet0/0" },
+        { code: "L", proto: "local", network: "10.0.0.2/32", iface: "GigabitEthernet0/0" },
+        { code: "O", proto: "ospf", network: "192.168.10.0/24", metric: "110/2", via: "10.0.0.1", iface: "GigabitEthernet0/0", age: "3w2d" },
+        { code: "O", proto: "ospf", network: "192.168.20.0/24", metric: "110/2", via: "10.0.0.1", iface: "GigabitEthernet0/0", age: "3w2d" },
+        { code: "O", proto: "ospf", network: "192.168.30.0/24", metric: "110/2", via: "10.0.0.1", iface: "GigabitEthernet0/0", age: "3w2d" },
+        { code: "C", proto: "connected", network: "203.0.113.0/30", iface: "GigabitEthernet0/1" },
+        { code: "L", proto: "local", network: "203.0.113.2/32", iface: "GigabitEthernet0/1" },
+        { code: "S*", proto: "static", network: "0.0.0.0/0", via: "203.0.113.1" },
+    ],
 };
 
 /** `show ip ospf neighbor` per device. */
 export const ospfNeighbors = {
-  R1: [
-    {
-      id: "2.2.2.2",
-      pri: 1,
-      state: "FULL/DR",
-      dead: "00:00:34",
-      address: "10.0.0.2",
-      iface: "GigabitEthernet0/1",
-    },
-  ],
-  R2: [
-    {
-      id: "1.1.1.1",
-      pri: 1,
-      state: "FULL/BDR",
-      dead: "00:00:31",
-      address: "10.0.0.1",
-      iface: "GigabitEthernet0/0",
-    },
-  ],
+    R1: [
+        {
+            id: "2.2.2.2",
+            pri: 1,
+            state: "FULL/DR",
+            dead: "00:00:34",
+            address: "10.0.0.2",
+            iface: "GigabitEthernet0/1",
+        },
+    ],
+    R2: [
+        {
+            id: "1.1.1.1",
+            pri: 1,
+            state: "FULL/BDR",
+            dead: "00:00:31",
+            address: "10.0.0.1",
+            iface: "GigabitEthernet0/0",
+        },
+    ],
 };
 
 /** `show mac address-table` on SW1. */
 export const macTable = [
-  { vlan: 10, mac: "0090.2BA1.10AA", type: "DYNAMIC", port: "Fa0/1" },
-  { vlan: 20, mac: "0090.2BA1.20BB", type: "DYNAMIC", port: "Fa0/2" },
-  { vlan: 10, mac: "0090.2BA1.10CC", type: "DYNAMIC", port: "Gi0/2" },
-  { vlan: 10, mac: "0060.5C7B.1A01", type: "DYNAMIC", port: "Gi0/1" },
-  { vlan: 20, mac: "0060.5C7B.1A01", type: "DYNAMIC", port: "Gi0/1" },
-  { vlan: 30, mac: "0060.5C7B.1A01", type: "DYNAMIC", port: "Gi0/1" },
+    { vlan: 10, mac: "0090.2BA1.10AA", type: "DYNAMIC", port: "Fa0/1" },
+    { vlan: 20, mac: "0090.2BA1.20BB", type: "DYNAMIC", port: "Fa0/2" },
+    { vlan: 10, mac: "0090.2BA1.10CC", type: "DYNAMIC", port: "Gi0/2" },
+    { vlan: 10, mac: "0060.5C7B.1A01", type: "DYNAMIC", port: "Gi0/1" },
+    { vlan: 20, mac: "0060.5C7B.1A01", type: "DYNAMIC", port: "Gi0/1" },
+    { vlan: 30, mac: "0060.5C7B.1A01", type: "DYNAMIC", port: "Gi0/1" },
 ];
 
 /** `show cdp neighbors` per device. */
 export const cdpNeighbors = {
-  R1: [
-    { id: "SW1", localIface: "Gig 0/0", holdtime: 142, capability: "S I", platform: "2960", portId: "Gig 0/1" },
-    { id: "R2", localIface: "Gig 0/1", holdtime: 168, capability: "R B", platform: "2911", portId: "Gig 0/0" },
-  ],
-  R2: [
-    { id: "R1", localIface: "Gig 0/0", holdtime: 155, capability: "R B", platform: "2911", portId: "Gig 0/1" },
-  ],
-  SW1: [
-    { id: "R1", localIface: "Gig 0/1", holdtime: 133, capability: "R B", platform: "2911", portId: "Gig 0/0" },
-    { id: "SW2", localIface: "Gig 0/2", holdtime: 147, capability: "S I", platform: "2960", portId: "Gig 0/1" },
-  ],
-  SW2: [
-    { id: "SW1", localIface: "Gig 0/1", holdtime: 161, capability: "S I", platform: "2960", portId: "Gig 0/2" },
-  ],
+    R1: [
+        { id: "SW1", localIface: "Gig 0/0", holdtime: 142, capability: "S I", platform: "2960", portId: "Gig 0/1" },
+        { id: "R2", localIface: "Gig 0/1", holdtime: 168, capability: "R B", platform: "2911", portId: "Gig 0/0" },
+    ],
+    R2: [
+        { id: "R1", localIface: "Gig 0/0", holdtime: 155, capability: "R B", platform: "2911", portId: "Gig 0/1" },
+    ],
+    SW1: [
+        { id: "R1", localIface: "Gig 0/1", holdtime: 133, capability: "R B", platform: "2911", portId: "Gig 0/0" },
+        { id: "SW2", localIface: "Gig 0/2", holdtime: 147, capability: "S I", platform: "2960", portId: "Gig 0/1" },
+    ],
+    SW2: [
+        { id: "SW1", localIface: "Gig 0/1", holdtime: 161, capability: "S I", platform: "2960", portId: "Gig 0/2" },
+    ],
 };
 
 /** `arp -a` — the view from PC1 in VLAN 10, plus lab-wide entries. */
 export const arpTable = [
-  { ip: "192.168.10.1", mac: "0060.5C7B.1A01", type: "dynamic", iface: "Gi0/0.10", host: "R1" },
-  { ip: "192.168.10.10", mac: "0090.2BA1.10AA", type: "dynamic", iface: "Fa0/1", host: "PC1" },
-  { ip: "192.168.10.11", mac: "0090.2BA1.10CC", type: "dynamic", iface: "Gi0/2", host: "PC2" },
-  { ip: "192.168.20.1", mac: "0060.5C7B.1A01", type: "dynamic", iface: "Gi0/0.20", host: "R1" },
-  { ip: "192.168.20.10", mac: "0090.2BA1.20BB", type: "dynamic", iface: "Fa0/2", host: "SRV1" },
-  { ip: "192.168.30.11", mac: "000C.2999.30D1", type: "dynamic", iface: "Vlan30", host: "SW1" },
-  { ip: "192.168.30.12", mac: "000C.2999.30D2", type: "dynamic", iface: "Vlan30", host: "SW2" },
-  { ip: "10.0.0.2", mac: "0060.5C7B.2B01", type: "dynamic", iface: "Gi0/1", host: "R2" },
+    { ip: "192.168.10.1", mac: "0060.5C7B.1A01", type: "dynamic", iface: "Gi0/0.10", host: "R1" },
+    { ip: "192.168.10.10", mac: "0090.2BA1.10AA", type: "dynamic", iface: "Fa0/1", host: "PC1" },
+    { ip: "192.168.10.11", mac: "0090.2BA1.10CC", type: "dynamic", iface: "Gi0/2", host: "PC2" },
+    { ip: "192.168.20.1", mac: "0060.5C7B.1A01", type: "dynamic", iface: "Gi0/0.20", host: "R1" },
+    { ip: "192.168.20.10", mac: "0090.2BA1.20BB", type: "dynamic", iface: "Fa0/2", host: "SRV1" },
+    { ip: "192.168.30.11", mac: "000C.2999.30D1", type: "dynamic", iface: "Vlan30", host: "SW1" },
+    { ip: "192.168.30.12", mac: "000C.2999.30D2", type: "dynamic", iface: "Vlan30", host: "SW2" },
+    { ip: "10.0.0.2", mac: "0060.5C7B.2B01", type: "dynamic", iface: "Gi0/1", host: "R2" },
 ];
 
 /**
@@ -394,18 +394,18 @@ export const arpTable = [
  * `hops` is the hop count used to derive a plausible TTL and latency.
  */
 export const knownHosts = [
-  { name: "R1", ip: "192.168.10.1", hops: 1, baseRtt: 1.2 },
-  { name: "R2", ip: "10.0.0.2", hops: 2, baseRtt: 2.4 },
-  { name: "SW1", ip: "192.168.30.11", hops: 1, baseRtt: 0.9 },
-  { name: "SW2", ip: "192.168.30.12", hops: 2, baseRtt: 1.4 },
-  { name: "PC2", ip: "192.168.10.11", hops: 1, baseRtt: 0.8 },
-  { name: "SRV1", ip: "192.168.20.10", hops: 2, baseRtt: 1.6 },
-  { name: "isp-gw", ip: "203.0.113.1", hops: 3, baseRtt: 8.5 },
+    { name: "R1", ip: "192.168.10.1", hops: 1, baseRtt: 1.2 },
+    { name: "R2", ip: "10.0.0.2", hops: 2, baseRtt: 2.4 },
+    { name: "SW1", ip: "192.168.30.11", hops: 1, baseRtt: 0.9 },
+    { name: "SW2", ip: "192.168.30.12", hops: 2, baseRtt: 1.4 },
+    { name: "PC2", ip: "192.168.10.11", hops: 1, baseRtt: 0.8 },
+    { name: "SRV1", ip: "192.168.20.10", hops: 2, baseRtt: 1.6 },
+    { name: "isp-gw", ip: "203.0.113.1", hops: 3, baseRtt: 8.5 },
 ];
 
 /** Full `show running-config` output per device — trimmed to what the labs actually configure. */
 export const runningConfigs = {
-  R1: `Building configuration...
+    R1: `Building configuration...
 
 Current configuration : 1489 bytes
 !
@@ -467,7 +467,7 @@ line vty 0 4
  transport input ssh
 !
 end`,
-  R2: `Building configuration...
+    R2: `Building configuration...
 
 Current configuration : 1122 bytes
 !
@@ -501,7 +501,7 @@ ip access-list standard NAT-ACL
  permit 192.168.20.0 0.0.0.255
 !
 end`,
-  SW1: `Building configuration...
+    SW1: `Building configuration...
 
 Current configuration : 1310 bytes
 !
@@ -559,7 +559,7 @@ interface Vlan30
 ip default-gateway 192.168.30.1
 !
 end`,
-  SW2: `Building configuration...
+    SW2: `Building configuration...
 
 Current configuration : 902 bytes
 !
@@ -608,6 +608,6 @@ export const deviceNames = devices.map((d) => d.hostname);
 
 /** @param {string} hostname */
 export function getDevice(hostname) {
-  const target = String(hostname).toUpperCase();
-  return devices.find((d) => d.hostname.toUpperCase() === target) ?? null;
+    const target = String(hostname).toUpperCase();
+    return devices.find((d) => d.hostname.toUpperCase() === target) ?? null;
 }

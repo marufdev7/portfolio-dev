@@ -36,9 +36,10 @@ export default function NetworkTeaser() {
                   {ccnaStatus.headline}
                 </Badge>
                 <p className="leading-relaxed text-muted">
-                  {labs.length} labs documented with the configs, the verification output, and the
-                  thing that broke each time. Plus a terminal on this site that does real subnetting
-                  math and simulates enough Cisco IOS to be worth typing into.
+                  {labs.length} labs documented with the configs, the
+                  verification output, and the thing that broke each time. Plus
+                  a terminal on this site that does real subnetting math and
+                  simulates enough Cisco IOS to be worth typing into.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Button to="/network" tone="net">

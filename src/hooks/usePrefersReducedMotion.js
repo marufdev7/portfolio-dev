@@ -7,19 +7,19 @@ const QUERY = "(prefers-reduced-motion: reduce)";
  * so the raw check is exported too.
  */
 export function prefersReducedMotion() {
-  if (typeof window === "undefined" || !window.matchMedia) return false;
-  return window.matchMedia(QUERY).matches;
+    if (typeof window === "undefined" || !window.matchMedia) return false;
+    return window.matchMedia(QUERY).matches;
 }
 
 export function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(prefersReducedMotion);
+    const [reduced, setReduced] = useState(prefersReducedMotion);
 
-  useEffect(() => {
-    const mq = window.matchMedia(QUERY);
-    const onChange = () => setReduced(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
+    useEffect(() => {
+        const mq = window.matchMedia(QUERY);
+        const onChange = () => setReduced(mq.matches);
+        mq.addEventListener("change", onChange);
+        return () => mq.removeEventListener("change", onChange);
+    }, []);
 
-  return reduced;
+    return reduced;
 }

@@ -41,11 +41,16 @@ export default function SkillsList({ side = "dev", legend = true }) {
             </h3>
             <ul className="space-y-3">
               {group.items.map((item) => (
-                <li key={item.name} className="flex items-baseline justify-between gap-3">
+                <li
+                  key={item.name}
+                  className="flex items-baseline justify-between gap-3"
+                >
                   <span className="text-sm text-text">
                     {item.name}
                     {item.note && (
-                      <span className="ml-2 font-mono text-xs text-faint">— {item.note}</span>
+                      <span className="ml-2 font-mono text-xs text-faint">
+                        — {item.note}
+                      </span>
                     )}
                   </span>
                   <span
@@ -64,7 +69,9 @@ export default function SkillsList({ side = "dev", legend = true }) {
         <dl className="mt-6 space-y-1.5 text-sm text-muted">
           {Object.entries(LEVELS).map(([key, level]) => (
             <div key={key} className="flex gap-2">
-              <dt className={`font-mono text-xs ${styles[key].split(" ")[1]}`}>{level.label}</dt>
+              <dt className={`font-mono text-xs ${styles[key].split(" ")[1]}`}>
+                {level.label}
+              </dt>
               <dd className="text-muted">— {level.meaning}</dd>
             </div>
           ))}

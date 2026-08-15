@@ -29,7 +29,9 @@ function Disclosure({ label, children, id }) {
         <ChevronDown
           size={14}
           aria-hidden="true"
-          className={open ? "rotate-180 transition-transform" : "transition-transform"}
+          className={
+            open ? "rotate-180 transition-transform" : "transition-transform"
+          }
         />
       </button>
       <div id={id} hidden={!open} className="mt-3">
@@ -61,7 +63,9 @@ export default function LabCard({ lab }) {
         <span className="font-mono text-xs text-faint">{date}</span>
       </div>
 
-      <h2 className="font-display text-2xl font-semibold tracking-tight text-text">{lab.title}</h2>
+      <h2 className="font-display text-2xl font-semibold tracking-tight text-text">
+        {lab.title}
+      </h2>
 
       <div className="mt-4 flex flex-wrap gap-1.5">
         {lab.topics.map((topic) => (
@@ -71,13 +75,23 @@ export default function LabCard({ lab }) {
         ))}
       </div>
 
-      <p className="mt-5 max-w-[72ch] leading-relaxed text-muted">{lab.objective}</p>
+      <p className="mt-5 max-w-[72ch] leading-relaxed text-muted">
+        {lab.objective}
+      </p>
 
       <div className="my-6 rounded-md border border-warn/30 bg-warn/5 p-5">
-        <h3 className="font-mono text-xs tracking-widest text-warn">WHAT BROKE</h3>
-        <p className="mt-2 max-w-[72ch] leading-relaxed text-muted">{lab.whatBroke}</p>
-        <h3 className="mt-5 font-mono text-xs tracking-widest text-net">HOW I FIXED IT</h3>
-        <p className="mt-2 max-w-[72ch] leading-relaxed text-muted">{lab.howIFixedIt}</p>
+        <h3 className="font-mono text-xs tracking-widest text-warn">
+          WHAT BROKE
+        </h3>
+        <p className="mt-2 max-w-[72ch] leading-relaxed text-muted">
+          {lab.whatBroke}
+        </p>
+        <h3 className="mt-5 font-mono text-xs tracking-widest text-net">
+          HOW I FIXED IT
+        </h3>
+        <p className="mt-2 max-w-[72ch] leading-relaxed text-muted">
+          {lab.howIFixedIt}
+        </p>
       </div>
 
       <div className="space-y-4">
@@ -93,7 +107,9 @@ export default function LabCard({ lab }) {
       </div>
 
       <p className="mt-6 border-l-2 border-net/50 pl-4 leading-relaxed text-text">
-        <span className="font-mono text-xs tracking-widest text-net">TAKEAWAY </span>
+        <span className="font-mono text-xs tracking-widest text-net">
+          TAKEAWAY{" "}
+        </span>
         {lab.takeaway}
       </p>
     </Card>

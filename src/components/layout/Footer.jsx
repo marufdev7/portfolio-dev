@@ -44,7 +44,9 @@ export default function Footer() {
 
       <div className="border-t border-line/60">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-4 font-mono text-xs text-faint sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <span>© {year} {profile.name}</span>
+          <span>
+            © {year} {profile.name}
+          </span>
           <span>
             Built with React and Tailwind ·{" "}
             <Link to="/network/terminal" className="hover:text-net">

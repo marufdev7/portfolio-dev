@@ -27,7 +27,8 @@ export default function TerminalOverlay() {
       document.body.style.overflow = overflow;
       // Send focus back where it came from — otherwise closing the
       // overlay drops a keyboard user at the top of the document.
-      if (returnFocusRef.current instanceof HTMLElement) returnFocusRef.current.focus();
+      if (returnFocusRef.current instanceof HTMLElement)
+        returnFocusRef.current.focus();
     };
   }, [overlayOpen, booted, boot]);
 

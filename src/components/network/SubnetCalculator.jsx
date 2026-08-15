@@ -13,7 +13,12 @@ import Table from "../ui/Table";
    the two can't drift.
    --------------------------------------------------------------- */
 
-const PRESETS = ["192.168.1.10/26", "10.0.0.0/8", "172.16.5.1 255.255.255.240", "203.0.113.9/31"];
+const PRESETS = [
+  "192.168.1.10/26",
+  "10.0.0.0/8",
+  "172.16.5.1 255.255.255.240",
+  "203.0.113.9/31",
+];
 
 export default function SubnetCalculator() {
   const [input, setInput] = useState("192.168.1.10/26");
@@ -38,7 +43,10 @@ export default function SubnetCalculator() {
     <div>
       <form onSubmit={onSubmit} className="flex flex-wrap items-end gap-3">
         <div className="grow">
-          <label htmlFor="subnet-input" className="mb-1.5 block text-sm text-muted">
+          <label
+            htmlFor="subnet-input"
+            className="mb-1.5 block text-sm text-muted"
+          >
             Address with prefix or mask
           </label>
           <input
@@ -106,7 +114,9 @@ export default function SubnetCalculator() {
                 ["Scope", `${data.scope.scope} (${data.scope.rfc})`],
               ]}
             />
-            {data.note && <p className="mt-4 text-sm text-muted">{data.note}</p>}
+            {data.note && (
+              <p className="mt-4 text-sm text-muted">{data.note}</p>
+            )}
           </>
         )}
       </div>

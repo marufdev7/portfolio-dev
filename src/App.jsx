@@ -23,7 +23,9 @@ const NetworkNotes = lazy(() => import("./pages/NetworkNotes"));
 /* The overlay carries the shell UI, so it is deferred until Ctrl+K is
    pressed for the first time. It stays mounted afterwards — unmounting
    it would take the exit animation with it. */
-const TerminalOverlay = lazy(() => import("./components/terminal/TerminalOverlay"));
+const TerminalOverlay = lazy(
+  () => import("./components/terminal/TerminalOverlay"),
+);
 
 function RouteFallback() {
   return (
@@ -48,7 +50,7 @@ export default function App() {
       event.preventDefault();
       toggleOverlay();
     },
-    [toggleOverlay]
+    [toggleOverlay],
   );
 
   useKeyboardShortcut("k", onShortcut, { meta: true });

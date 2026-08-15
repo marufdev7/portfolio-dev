@@ -15,21 +15,29 @@ import Tag from "../ui/Tag";
 /** @param {{project: import('../../data/projects').Project}} props */
 export default function ProjectCard({ project }) {
   return (
-    <Card interactive className="group relative flex h-full w-full min-w-0 flex-col p-6">
+    <Card
+      interactive
+      className="group relative flex h-full w-full min-w-0 flex-col p-6"
+    >
       <div className="mb-3 flex items-baseline justify-between gap-4">
         <h3 className="font-display text-xl font-semibold tracking-tight text-text">
-          <Link to={`/projects/${project.slug}`} className="after:absolute after:inset-0">
+          <Link
+            to={`/projects/${project.slug}`}
+            className="after:absolute after:inset-0"
+          >
             {project.title}
           </Link>
         </h3>
-        {project.year && <span className="font-mono text-xs text-faint">{project.year}</span>}
+        {project.year && (
+          <span className="font-mono text-xs text-faint">{project.year}</span>
+        )}
       </div>
 
       <p className="mb-5 leading-relaxed text-muted">{project.tagline}</p>
 
-      {project.metrics?.[0] && (
+      {project.facts?.[0] && (
         <p className="mb-5 border-l-2 border-accent/40 pl-3 font-mono text-xs leading-relaxed text-muted">
-          {project.metrics[0]}
+          {project.facts[0]}
         </p>
       )}
 

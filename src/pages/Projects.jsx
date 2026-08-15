@@ -16,7 +16,9 @@ export default function Projects() {
   const [params, setParams] = useSearchParams();
   const active = params.get("stack");
 
-  const visible = active ? projects.filter((p) => p.stack.includes(active)) : projects;
+  const visible = active
+    ? projects.filter((p) => p.stack.includes(active))
+    : projects;
 
   const setStack = (stack) => {
     const next = new URLSearchParams(params);
@@ -29,24 +31,30 @@ export default function Projects() {
     <>
       <Seo
         title="Projects"
-        description="Case studies with the decisions written down — the problem, the tradeoffs, what broke, and what it measured afterwards."
+        description="Real frontend and full-stack projects with live deployments, source code, technical decisions, and implementation details."
         path="/projects"
       />
 
       <PageShell
         eyebrow="dev / work"
         title="Projects"
-        lead="Every one of these has a case study: the problem, the approach, the thing that went wrong, and a number that changed. Fewer projects, more detail."
+        lead="Five deployed projects spanning e-commerce, travel, and parcel delivery, with the architecture, tools, and implementation decisions documented."
         grid
       >
         <div className="mt-12">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="mr-2 font-mono text-xs tracking-widest text-faint">FILTER</span>
+            <span className="mr-2 font-mono text-xs tracking-widest text-faint">
+              FILTER
+            </span>
             <Tag active={!active} onClick={() => setStack(null)}>
               All
             </Tag>
             {allStacks.map((stack) => (
-              <Tag key={stack} active={stack === active} onClick={() => setStack(stack)}>
+              <Tag
+                key={stack}
+                active={stack === active}
+                onClick={() => setStack(stack)}
+              >
                 {stack}
               </Tag>
             ))}

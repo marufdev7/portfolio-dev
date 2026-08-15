@@ -21,7 +21,9 @@ globalThis.IntersectionObserver = ObserverStub;
 describe("CountUp", () => {
   it("lands on the target number", async () => {
     render(<CountUp value="3" duration={0.05} />);
-    await waitFor(() => expect(screen.getByText("3", { selector: "[aria-hidden]" })).toBeTruthy());
+    await waitFor(() =>
+      expect(screen.getByText("3", { selector: "[aria-hidden]" })).toBeTruthy(),
+    );
   });
 
   it("always exposes the final value to assistive tech", () => {
@@ -31,6 +33,8 @@ describe("CountUp", () => {
 
   it("renders a non-numeric value as plain text", () => {
     render(<CountUp value="CCNA" />);
-    expect(screen.getByText("CCNA", { selector: "[aria-hidden]" })).toBeTruthy();
+    expect(
+      screen.getByText("CCNA", { selector: "[aria-hidden]" }),
+    ).toBeTruthy();
   });
 });

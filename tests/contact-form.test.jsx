@@ -22,16 +22,25 @@ const setup = () =>
   render(
     <MemoryRouter>
       <ContactForm />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 
-const fill = async (user, { name = "Ada", email = "ada@example.com", message } = {}) => {
+const fill = async (
+  user,
+  { name = "Ada", email = "ada@example.com", message } = {},
+) => {
   await user.type(screen.getByLabelText(/name/i), name);
   await user.type(screen.getByLabelText(/email/i), email);
-  await user.type(screen.getByLabelText(/message/i), message ?? "Hello, this is long enough.");
+  await user.type(
+    screen.getByLabelText(/message/i),
+    message ?? "Hello, this is long enough.",
+  );
 };
 
-const ok = () => ({ ok: true, json: async () => ({ success: true, message: "Email sent" }) });
+const ok = () => ({
+  ok: true,
+  json: async () => ({ success: true, message: "Email sent" }),
+});
 
 describe("ContactForm", () => {
   beforeEach(() => {
@@ -60,7 +69,11 @@ describe("ContactForm", () => {
   it("sends the field names the relay expects", async () => {
     const user = userEvent.setup();
     setup();
-    await fill(user, { name: "Ada", email: "ada@example.com", message: "Ten chars plus." });
+    await fill(user, {
+      name: "Ada",
+      email: "ada@example.com",
+      message: "Ten chars plus.",
+    });
     await user.click(screen.getByRole("button", { name: /send message/i }));
 
     await waitFor(() => expect(fetch).toHaveBeenCalled());
@@ -93,7 +106,7 @@ describe("ContactForm", () => {
       vi.fn(async () => ({
         ok: true,
         json: async () => ({ success: false, message: "Invalid access key" }),
-      }))
+      })),
     );
 
     const user = userEvent.setup();
@@ -106,7 +119,7 @@ describe("ContactForm", () => {
     // The escape hatch — the address must stay reachable on failure.
     expect(screen.getByRole("link", { name: profile.email })).toHaveAttribute(
       "href",
-      `mailto:${profile.email}`
+      `mailto:${profile.email}`,
     );
   });
 
@@ -115,7 +128,7 @@ describe("ContactForm", () => {
       "fetch",
       vi.fn(async () => {
         throw new Error("Failed to fetch");
-      })
+      }),
     );
 
     const user = userEvent.setup();

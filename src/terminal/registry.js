@@ -29,12 +29,12 @@
 
 /** Display order and labels for `help` (§6.5). */
 export const CATEGORIES = [
-  { key: "system", label: "System" },
-  { key: "portfolio", label: "Portfolio" },
-  { key: "network", label: "Networking" },
-  { key: "ios", label: "Cisco IOS (simulated)" },
-  { key: "quiz", label: "Quiz" },
-  { key: "fun", label: "Fun" },
+    { key: "system", label: "System" },
+    { key: "portfolio", label: "Portfolio" },
+    { key: "network", label: "Networking" },
+    { key: "ios", label: "Cisco IOS (simulated)" },
+    { key: "quiz", label: "Quiz" },
+    { key: "fun", label: "Fun" },
 ];
 
 const modules = import.meta.glob("./commands/*.js", { eager: true });
@@ -48,44 +48,44 @@ const all = [];
 export const registryIssues = [];
 
 function register(command, source) {
-  const problems = [];
-  if (!command?.name) problems.push(`${source}: a command is missing 'name'`);
-  if (!command?.usage) problems.push(`${command?.name ?? source}: missing 'usage'`);
-  if (!command?.description) problems.push(`${command?.name ?? source}: missing 'description'`);
-  if (typeof command?.run !== "function") {
-    problems.push(`${command?.name ?? source}: missing 'run'`);
-  }
-  if (!CATEGORIES.some((c) => c.key === command?.category)) {
-    problems.push(`${command?.name ?? source}: unknown category '${command?.category}'`);
-  }
-
-  if (problems.length) {
-    registryIssues.push(...problems);
-    return;
-  }
-
-  for (const key of [command.name, ...(command.aliases ?? [])]) {
-    const lower = key.toLowerCase();
-    if (index.has(lower)) {
-      registryIssues.push(
-        `duplicate name/alias '${lower}' — claimed by both '${index.get(lower).name}' and '${command.name}'`
-      );
-      continue;
+    const problems = [];
+    if (!command?.name) problems.push(`${source}: a command is missing 'name'`);
+    if (!command?.usage) problems.push(`${command?.name ?? source}: missing 'usage'`);
+    if (!command?.description) problems.push(`${command?.name ?? source}: missing 'description'`);
+    if (typeof command?.run !== "function") {
+        problems.push(`${command?.name ?? source}: missing 'run'`);
     }
-    index.set(lower, command);
-  }
-  all.push(command);
+    if (!CATEGORIES.some((c) => c.key === command?.category)) {
+        problems.push(`${command?.name ?? source}: unknown category '${command?.category}'`);
+    }
+
+    if (problems.length) {
+        registryIssues.push(...problems);
+        return;
+    }
+
+    for (const key of [command.name, ...(command.aliases ?? [])]) {
+        const lower = key.toLowerCase();
+        if (index.has(lower)) {
+            registryIssues.push(
+                `duplicate name/alias '${lower}' — claimed by both '${index.get(lower).name}' and '${command.name}'`
+            );
+            continue;
+        }
+        index.set(lower, command);
+    }
+    all.push(command);
 }
 
 for (const [path, mod] of Object.entries(modules)) {
-  const exported = mod.default ?? mod.commands;
-  if (!exported) {
-    registryIssues.push(`${path}: no default export`);
-    continue;
-  }
-  for (const command of Array.isArray(exported) ? exported : [exported]) {
-    register(command, path);
-  }
+    const exported = mod.default ?? mod.commands;
+    if (!exported) {
+        registryIssues.push(`${path}: no default export`);
+        continue;
+    }
+    for (const command of Array.isArray(exported) ? exported : [exported]) {
+        register(command, path);
+    }
 }
 
 all.sort((a, b) => a.name.localeCompare(b.name));
@@ -96,23 +96,23 @@ all.sort((a, b) => a.name.localeCompare(b.name));
  * @returns {Command|undefined}
  */
 export function resolve(name) {
-  return index.get(String(name ?? "").toLowerCase());
+    return index.get(String(name ?? "").toLowerCase());
 }
 
 /** Every registered command, name-sorted, hidden ones included. */
 export function listCommands({ includeHidden = false } = {}) {
-  return includeHidden ? all.slice() : all.filter((c) => !c.hidden);
+    return includeHidden ? all.slice() : all.filter((c) => !c.hidden);
 }
 
 /** Names and aliases — the candidate set for completion and did-you-mean. */
 export function commandNames({ includeHidden = false, includeAliases = true } = {}) {
-  const names = [];
-  for (const command of all) {
-    if (command.hidden && !includeHidden) continue;
-    names.push(command.name);
-    if (includeAliases) names.push(...(command.aliases ?? []));
-  }
-  return names.sort();
+    const names = [];
+    for (const command of all) {
+        if (command.hidden && !includeHidden) continue;
+        names.push(command.name);
+        if (includeAliases) names.push(...(command.aliases ?? []));
+    }
+    return names.sort();
 }
 
 /**
@@ -120,14 +120,14 @@ export function commandNames({ includeHidden = false, includeAliases = true } = 
  * @returns {{key: string, label: string, commands: Command[]}[]}
  */
 export function commandsByCategory({ includeHidden = false } = {}) {
-  return CATEGORIES.map(({ key, label }) => ({
-    key,
-    label,
-    commands: all.filter((c) => c.category === key && (includeHidden || !c.hidden)),
-  })).filter((group) => group.commands.length > 0);
+    return CATEGORIES.map(({ key, label }) => ({
+        key,
+        label,
+        commands: all.filter((c) => c.category === key && (includeHidden || !c.hidden)),
+    })).filter((group) => group.commands.length > 0);
 }
 
 /** Total registered, for the boot banner's "N commands" line. */
 export function commandCount() {
-  return all.filter((c) => !c.hidden).length;
+    return all.filter((c) => !c.hidden).length;
 }

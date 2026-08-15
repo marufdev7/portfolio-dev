@@ -8,23 +8,23 @@ const MAX_ENTRIES = 200;
 
 /** @returns {string[]} */
 export function loadHistory() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter((e) => typeof e === "string") : [];
-  } catch {
-    return [];
-  }
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed.filter((e) => typeof e === "string") : [];
+    } catch {
+        return [];
+    }
 }
 
 /** @param {string[]} entries */
 export function saveHistory(entries) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries.slice(-MAX_ENTRIES)));
-  } catch {
-    /* storage blocked or full — history is still live for this session */
-  }
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries.slice(-MAX_ENTRIES)));
+    } catch {
+        /* storage blocked or full — history is still live for this session */
+    }
 }
 
 /**
@@ -36,19 +36,19 @@ export function saveHistory(entries) {
  * @returns {string[]}
  */
 export function pushHistory(entries, input) {
-  const trimmed = input.trim();
-  if (!trimmed) return entries;
-  if (entries[entries.length - 1] === trimmed) return entries;
-  const next = [...entries, trimmed];
-  return next.length > MAX_ENTRIES ? next.slice(next.length - MAX_ENTRIES) : next;
+    const trimmed = input.trim();
+    if (!trimmed) return entries;
+    if (entries[entries.length - 1] === trimmed) return entries;
+    const next = [...entries, trimmed];
+    return next.length > MAX_ENTRIES ? next.slice(next.length - MAX_ENTRIES) : next;
 }
 
 export function clearHistory() {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    /* nothing to do */
-  }
+    try {
+        localStorage.removeItem(STORAGE_KEY);
+    } catch {
+        /* nothing to do */
+    }
 }
 
 /**
@@ -67,18 +67,18 @@ export function clearHistory() {
  * @returns {{index: number, value: string}}
  */
 export function navigate(entries, index, direction, draft) {
-  if (entries.length === 0) return { index: 0, value: draft };
+    if (entries.length === 0) return { index: 0, value: draft };
 
-  if (direction === "up") {
-    const next = Math.min(index + 1, entries.length);
-    return { index: next, value: entries[entries.length - next] };
-  }
+    if (direction === "up") {
+        const next = Math.min(index + 1, entries.length);
+        return { index: next, value: entries[entries.length - next] };
+    }
 
-  const next = Math.max(index - 1, 0);
-  return {
-    index: next,
-    value: next === 0 ? draft : entries[entries.length - next],
-  };
+    const next = Math.max(index - 1, 0);
+    return {
+        index: next,
+        value: next === 0 ? draft : entries[entries.length - next],
+    };
 }
 
 /**
@@ -89,17 +89,17 @@ export function navigate(entries, index, direction, draft) {
  * @returns {{value: string, index: number}|null}
  */
 export function reverseSearch(entries, query, skip = 0) {
-  if (!query) return null;
-  const needle = query.toLowerCase();
-  let seen = 0;
+    if (!query) return null;
+    const needle = query.toLowerCase();
+    let seen = 0;
 
-  for (let i = entries.length - 1; i >= 0; i--) {
-    if (entries[i].toLowerCase().includes(needle)) {
-      if (seen === skip) return { value: entries[i], index: i };
-      seen++;
+    for (let i = entries.length - 1; i >= 0; i--) {
+        if (entries[i].toLowerCase().includes(needle)) {
+            if (seen === skip) return { value: entries[i], index: i };
+            seen++;
+        }
     }
-  }
-  return null;
+    return null;
 }
 
 /**
@@ -111,13 +111,13 @@ export function reverseSearch(entries, query, skip = 0) {
  * @returns {string|null} the expanded command, or null if not a bang expression
  */
 export function expandBang(entries, input) {
-  const trimmed = input.trim();
+    const trimmed = input.trim();
 
-  if (trimmed === "!!") return entries[entries.length - 1] ?? null;
+    if (trimmed === "!!") return entries[entries.length - 1] ?? null;
 
-  const match = /^!(\d+)$/.exec(trimmed);
-  if (!match) return null;
+    const match = /^!(\d+)$/.exec(trimmed);
+    if (!match) return null;
 
-  const n = Number(match[1]);
-  return entries[n - 1] ?? null;
+    const n = Number(match[1]);
+    return entries[n - 1] ?? null;
 }

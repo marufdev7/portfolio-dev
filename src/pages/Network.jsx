@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, FlaskConical, NotebookText, TerminalSquare } from "lucide-react";
+import {
+  ArrowUpRight,
+  FlaskConical,
+  NotebookText,
+  TerminalSquare,
+} from "lucide-react";
 import Seo from "../components/layout/Seo";
 import PageShell from "../components/layout/PageShell";
 import Section from "../components/ui/Section";
@@ -39,7 +44,8 @@ const routes = [
     to: "/network/notes",
     icon: NotebookText,
     title: "CCNA notes",
-    detail: "Subnetting shortcuts, VLSM, ACL placement, NAT terms, OSPF states.",
+    detail:
+      "Subnetting shortcuts, VLSM, ACL placement, NAT terms, OSPF states.",
   },
 ];
 
@@ -65,7 +71,9 @@ export default function Network() {
           <Badge tone="net" pulse>
             {ccnaStatus.headline}
           </Badge>
-          <p className="mt-4 max-w-[72ch] leading-relaxed text-muted">{ccnaStatus.detail}</p>
+          <p className="mt-4 max-w-[72ch] leading-relaxed text-muted">
+            {ccnaStatus.detail}
+          </p>
         </div>
 
         <Section
@@ -87,7 +95,9 @@ export default function Network() {
                     {title}
                   </Link>
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{detail}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {detail}
+                </p>
               </Card>
             </Reveal>
           ))}
@@ -122,7 +132,9 @@ export default function Network() {
               <Reveal key={lab.slug} as="li" delay={i * 0.05}>
                 <Card tone="net" interactive className="relative p-5">
                   <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <span className="font-mono text-sm text-net">lab {lab.id}</span>
+                    <span className="font-mono text-sm text-net">
+                      lab {lab.id}
+                    </span>
                     <h3 className="font-display text-lg font-semibold text-text">
                       <Link
                         to={`/network/labs#${lab.slug}`}

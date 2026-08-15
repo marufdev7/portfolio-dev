@@ -42,87 +42,87 @@ import * as out from "./output";
  * @returns {Promise<{ok: boolean, command: string|null}>}
  */
 export async function execute(input, ctx) {
-  const raw = String(input ?? "");
+    const raw = String(input ?? "");
 
-  /* --- an interceptor owns the line: quiz answers, config-mode entry --- */
-  const interceptor = ctx.getInterceptor?.();
-  if (interceptor) {
+    /* --- an interceptor owns the line: quiz answers, config-mode entry --- */
+    const interceptor = ctx.getInterceptor?.();
+    if (interceptor) {
+        try {
+            const result = await interceptor(raw, ctx);
+            if (result !== undefined) ctx.print(result);
+            return { ok: true, command: "(interactive)" };
+        } catch (error) {
+            ctx.print(out.error(describeError(error)));
+            ctx.setInterceptor?.(null);
+            return { ok: false, command: "(interactive)" };
+        }
+    }
+
+    const trimmed = raw.trim();
+    if (!trimmed) return { ok: true, command: null };
+    if (trimmed.startsWith("#")) return { ok: true, command: null };
+
+    /* --- history expansion happens before parsing, as in bash --- */
+    let line = trimmed;
+    if (line.startsWith("!")) {
+        const expanded = expandBang(ctx.history ?? [], line);
+        if (expanded === null) {
+            ctx.print(out.error(`${line}: event not found`));
+            return { ok: false, command: null };
+        }
+        ctx.print(out.muted(expanded));
+        line = expanded;
+    }
+
+    const name = line.split(/\s+/)[0].toLowerCase();
+    const command = resolve(name);
+
+    if (!command) {
+        ctx.print(out.error(`command not found: ${name}`));
+        const suggestion = nearest(name, commandNames());
+        if (suggestion) {
+            ctx.print(out.muted(`did you mean '${suggestion}'?`));
+        } else {
+            ctx.print(out.muted("type `help` to see what's available."));
+        }
+        return { ok: false, command: null };
+    }
+
+    /* --- parse against the command's own flag spec --- */
+    let parsed;
     try {
-      const result = await interceptor(raw, ctx);
-      if (result !== undefined) ctx.print(result);
-      return { ok: true, command: "(interactive)" };
+        parsed = parse(line, { flags: command.flags, aliasFlags: command.aliasFlags });
     } catch (error) {
-      ctx.print(out.error(describeError(error)));
-      ctx.setInterceptor?.(null);
-      return { ok: false, command: "(interactive)" };
+        ctx.print(out.error(`${command.name}: ${error.message}`));
+        ctx.print(out.muted(command.usage));
+        return { ok: false, command: command.name };
     }
-  }
 
-  const trimmed = raw.trim();
-  if (!trimmed) return { ok: true, command: null };
-  if (trimmed.startsWith("#")) return { ok: true, command: null };
-
-  /* --- history expansion happens before parsing, as in bash --- */
-  let line = trimmed;
-  if (line.startsWith("!")) {
-    const expanded = expandBang(ctx.history ?? [], line);
-    if (expanded === null) {
-      ctx.print(out.error(`${line}: event not found`));
-      return { ok: false, command: null };
+    /* --- run --- */
+    try {
+        const result = await command.run(ctx, {
+            args: parsed.args.map((a) => expandVars(a, ctx.env ?? {})),
+            rawArgs: parsed.args,
+            flags: parsed.flags,
+            raw: line,
+            tokens: parsed.tokens,
+        });
+        if (result !== undefined) ctx.print(result);
+        return { ok: true, command: command.name };
+    } catch (error) {
+        if (error instanceof IpError) {
+            // Address math failures are user errors, not crashes — they get
+            // the usage line, because the fix is almost always in the input.
+            ctx.print(out.error(`${command.name}: ${error.message}`));
+            ctx.print(out.muted(`usage: ${command.usage}`));
+        } else {
+            ctx.print(out.error(`${command.name}: ${describeError(error)}`));
+        }
+        return { ok: false, command: command.name };
     }
-    ctx.print(out.muted(expanded));
-    line = expanded;
-  }
-
-  const name = line.split(/\s+/)[0].toLowerCase();
-  const command = resolve(name);
-
-  if (!command) {
-    ctx.print(out.error(`command not found: ${name}`));
-    const suggestion = nearest(name, commandNames());
-    if (suggestion) {
-      ctx.print(out.muted(`did you mean '${suggestion}'?`));
-    } else {
-      ctx.print(out.muted("type `help` to see what's available."));
-    }
-    return { ok: false, command: null };
-  }
-
-  /* --- parse against the command's own flag spec --- */
-  let parsed;
-  try {
-    parsed = parse(line, { flags: command.flags, aliasFlags: command.aliasFlags });
-  } catch (error) {
-    ctx.print(out.error(`${command.name}: ${error.message}`));
-    ctx.print(out.muted(command.usage));
-    return { ok: false, command: command.name };
-  }
-
-  /* --- run --- */
-  try {
-    const result = await command.run(ctx, {
-      args: parsed.args.map((a) => expandVars(a, ctx.env ?? {})),
-      rawArgs: parsed.args,
-      flags: parsed.flags,
-      raw: line,
-      tokens: parsed.tokens,
-    });
-    if (result !== undefined) ctx.print(result);
-    return { ok: true, command: command.name };
-  } catch (error) {
-    if (error instanceof IpError) {
-      // Address math failures are user errors, not crashes — they get
-      // the usage line, because the fix is almost always in the input.
-      ctx.print(out.error(`${command.name}: ${error.message}`));
-      ctx.print(out.muted(`usage: ${command.usage}`));
-    } else {
-      ctx.print(out.error(`${command.name}: ${describeError(error)}`));
-    }
-    return { ok: false, command: command.name };
-  }
 }
 
 function describeError(error) {
-  if (error instanceof Error) return error.message;
-  return String(error);
+    if (error instanceof Error) return error.message;
+    return String(error);
 }

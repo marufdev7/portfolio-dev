@@ -17,8 +17,18 @@ const channels = [
     // URL, so the only one that can fail silently. See EmailActions.
     copyable: true,
   },
-  { icon: Github, label: "GitHub", value: "Code and commits", href: profile.github },
-  { icon: Linkedin, label: "LinkedIn", value: "The formal version", href: profile.linkedin },
+  {
+    icon: Github,
+    label: "GitHub",
+    value: "Code and commits",
+    href: profile.github,
+  },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    value: "The formal version",
+    href: profile.linkedin,
+  },
 ];
 
 export default function Contact() {
@@ -26,14 +36,14 @@ export default function Contact() {
     <>
       <Seo
         title="Contact"
-        description="Open to frontend roles and freelance work. Email is fastest."
+        description="Open to network-focused opportunities. Email is fastest."
         path="/contact"
       />
 
       <PageShell
         eyebrow="dev / contact"
         title="Get in touch"
-        lead="Open to frontend roles and freelance work, and happy to talk about the networking half too. Email is the fastest way to reach me."
+        lead="Open to network-focused opportunities. Email is the fastest way to reach me."
       >
         <div className="mt-12 grid gap-12 md:grid-cols-[minmax(0,1fr)_18rem] md:gap-16">
           <ContactForm />
@@ -58,10 +68,16 @@ export default function Contact() {
                       : {})}
                     className="flex min-w-0 flex-1 items-center gap-3"
                   >
-                    <Icon size={18} aria-hidden="true" className="shrink-0 text-accent" />
+                    <Icon
+                      size={18}
+                      aria-hidden="true"
+                      className="shrink-0 text-accent"
+                    />
                     <span className="min-w-0">
                       <span className="block text-sm text-text">{label}</span>
-                      <span className="block truncate text-sm text-muted">{value}</span>
+                      <span className="block truncate text-sm text-muted">
+                        {value}
+                      </span>
                     </span>
                   </a>
                 );
@@ -77,7 +93,8 @@ export default function Contact() {
             </ul>
 
             <p className="text-sm text-faint">
-              Based in {profile.location}. Comfortable working remotely across time zones.
+              Based in {profile.location}. Comfortable working remotely across
+              time zones.
             </p>
           </aside>
         </div>

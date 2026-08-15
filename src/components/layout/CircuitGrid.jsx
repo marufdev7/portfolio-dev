@@ -10,10 +10,13 @@ export default function CircuitGrid({ tone = "dev", className = "" }) {
     <div
       aria-hidden="true"
       className={
-        "pointer-events-none absolute inset-0 -z-10 overflow-hidden " + className
+        "pointer-events-none absolute inset-0 -z-10 overflow-hidden " +
+        className
       }
     >
-      <div className={`h-full w-full circuit-grid ${tone === "net" ? "circuit-grid--net" : ""}`} />
+      <div
+        className={`h-full w-full circuit-grid ${tone === "net" ? "circuit-grid--net" : ""}`}
+      />
     </div>
   );
 }

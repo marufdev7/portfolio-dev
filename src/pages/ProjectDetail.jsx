@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Github, Server } from "lucide-react";
 import Seo from "../components/layout/Seo";
 import PageShell from "../components/layout/PageShell";
 import Button from "../components/ui/Button";
@@ -18,7 +18,7 @@ const SECTIONS = [
   { key: "problem", index: "01", title: "The problem" },
   { key: "solution", index: "02", title: "What I built" },
   { key: "tech", index: "03", title: "Technical decisions" },
-  { key: "challenges", index: "04", title: "What went wrong" },
+  { key: "challenges", index: "04", title: "Engineering focus" },
   { key: "result", index: "05", title: "The result" },
 ];
 
@@ -51,8 +51,20 @@ export default function ProjectDetail() {
             </Button>
             <Button href={project.githubLink} variant="outline">
               <Github size={16} aria-hidden="true" />
-              Source
+              {project.serverGithubLink ? "Client source" : "Source"}
             </Button>
+            {project.serverGithubLink && (
+              <Button href={project.serverGithubLink} variant="outline">
+                <Server size={16} aria-hidden="true" />
+                Server source
+              </Button>
+            )}
+            {project.apiLink && (
+              <Button href={project.apiLink} variant="ghost">
+                API
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </Button>
+            )}
           </>
         }
       >
@@ -66,20 +78,27 @@ export default function ProjectDetail() {
           <div className="max-w-[72ch] space-y-12">
             {SECTIONS.map((section) => (
               <Reveal key={section.key} as="section">
-                <p aria-hidden="true" className="mb-2 font-mono text-xs tracking-widest text-accent">
+                <p
+                  aria-hidden="true"
+                  className="mb-2 font-mono text-xs tracking-widest text-accent"
+                >
                   {section.index}
                 </p>
                 <h2 className="font-display text-2xl font-semibold tracking-tight text-text">
                   {section.title}
                 </h2>
-                <p className="mt-4 leading-relaxed text-muted">{project.caseStudy[section.key]}</p>
+                <p className="mt-4 leading-relaxed text-muted">
+                  {project.caseStudy[section.key]}
+                </p>
               </Reveal>
             ))}
           </div>
 
           <aside className="space-y-10 md:sticky md:top-24 md:self-start">
             <div>
-              <h2 className="mb-4 font-mono text-xs tracking-widest text-faint">HIGHLIGHTS</h2>
+              <h2 className="mb-4 font-mono text-xs tracking-widest text-faint">
+                HIGHLIGHTS
+              </h2>
               <ul className="space-y-2.5 text-sm text-muted">
                 {project.highlights.map((item) => (
                   <li key={item} className="flex gap-2">
@@ -92,16 +111,18 @@ export default function ProjectDetail() {
               </ul>
             </div>
 
-            {project.metrics?.length > 0 && (
+            {project.facts?.length > 0 && (
               <div>
-                <h2 className="mb-4 font-mono text-xs tracking-widest text-faint">MEASURED</h2>
+                <h2 className="mb-4 font-mono text-xs tracking-widest text-faint">
+                  PROJECT SCOPE
+                </h2>
                 <ul className="space-y-3">
-                  {project.metrics.map((metric) => (
+                  {project.facts.map((fact) => (
                     <li
-                      key={metric}
+                      key={fact}
                       className="border-l-2 border-accent/40 pl-3 font-mono text-xs leading-relaxed text-muted"
                     >
-                      {metric}
+                      {fact}
                     </li>
                   ))}
                 </ul>

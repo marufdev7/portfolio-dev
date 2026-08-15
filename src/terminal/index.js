@@ -8,22 +8,22 @@ export { execute } from "./engine";
 export { parse, tokenize, expandVars } from "./parser";
 export { complete, commonPrefix } from "./completion";
 export {
-  resolve,
-  listCommands,
-  commandNames,
-  commandsByCategory,
-  commandCount,
-  registryIssues,
-  CATEGORIES,
+    resolve,
+    listCommands,
+    commandNames,
+    commandsByCategory,
+    commandCount,
+    registryIssues,
+    CATEGORIES,
 } from "./registry";
 export {
-  loadHistory,
-  saveHistory,
-  pushHistory,
-  clearHistory,
-  navigate,
-  reverseSearch,
-  expandBang,
+    loadHistory,
+    saveHistory,
+    pushHistory,
+    clearHistory,
+    navigate,
+    reverseSearch,
+    expandBang,
 } from "./history";
 export * as output from "./output";
 export { Block, blockToText } from "./ansi";

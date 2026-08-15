@@ -27,7 +27,9 @@ export default function NetworkLabs() {
   const { hash } = useLocation();
   const active = params.get("topic");
 
-  const visible = active ? labs.filter((lab) => lab.topics.includes(active)) : labs;
+  const visible = active
+    ? labs.filter((lab) => lab.topics.includes(active))
+    : labs;
 
   const deepLink = useRef(hash);
   useEffect(() => {
@@ -58,7 +60,9 @@ export default function NetworkLabs() {
       >
         <div className="mt-12">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="mr-2 font-mono text-xs tracking-widest text-faint">TOPIC</span>
+            <span className="mr-2 font-mono text-xs tracking-widest text-faint">
+              TOPIC
+            </span>
             <Tag tone="net" active={!active} onClick={() => setTopic(null)}>
               All
             </Tag>

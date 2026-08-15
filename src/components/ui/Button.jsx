@@ -32,7 +32,8 @@ const sizes = {
 const variants = {
   dev: {
     solid: "bg-accent-solid text-bg hover:brightness-110",
-    outline: "border border-accent/40 text-accent hover:border-accent hover:bg-accent/10",
+    outline:
+      "border border-accent/40 text-accent hover:border-accent hover:bg-accent/10",
     ghost: "text-muted hover:text-accent hover:bg-accent/10",
   },
   net: {

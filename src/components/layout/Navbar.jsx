@@ -55,7 +55,12 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-7 md:flex">
           {navLinks.map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.end} className={linkClass}>
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={linkClass}
+            >
               {item.label}
             </NavLink>
           ))}
@@ -82,21 +87,32 @@ export default function Navbar() {
             aria-label={open ? "Close menu" : "Open menu"}
             className="rounded-md border border-line p-2 text-muted transition-colors hover:text-text md:hidden"
           >
-            {open ? <X size={16} aria-hidden="true" /> : <Menu size={16} aria-hidden="true" />}
+            {open ? (
+              <X size={16} aria-hidden="true" />
+            ) : (
+              <Menu size={16} aria-hidden="true" />
+            )}
           </button>
         </div>
       </nav>
 
       {open && (
-        <div id="mobile-nav" className="elevate border-t border-line bg-surface md:hidden">
+        <div
+          id="mobile-nav"
+          className="elevate border-t border-line bg-surface md:hidden"
+        >
           <ul className="mx-auto max-w-6xl px-4 py-2 sm:px-6">
             {navLinks.map((item) => (
-              <li key={item.to} className="border-b border-line/60 last:border-0">
+              <li
+                key={item.to}
+                className="border-b border-line/60 last:border-0"
+              >
                 <NavLink
                   to={item.to}
                   end={item.end}
                   className={({ isActive }) =>
-                    "block py-3 text-sm " + (isActive ? "text-accent" : "text-muted")
+                    "block py-3 text-sm " +
+                    (isActive ? "text-accent" : "text-muted")
                   }
                 >
                   {item.label}

@@ -8,7 +8,14 @@ import {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { append, toBlocks, promptEcho, muted, text, warn } from "../terminal/output";
+import {
+  append,
+  toBlocks,
+  promptEcho,
+  muted,
+  text,
+  warn,
+} from "../terminal/output";
 import {
   loadHistory,
   saveHistory,
@@ -40,17 +47,28 @@ export const TerminalContext = createContext(null);
 let enginePromise = null;
 const loadEngine = () => (enginePromise ??= import("../terminal"));
 
-
 /**
  * Boot lines (§6.7). Stored as data and turned into blocks at print
  * time — block ids are minted per call, so a constant array of blocks
  * would hand React duplicate keys.
  */
 const BOOT = [
-  { delay: 260, make: () => text("[  OK  ] Initializing portfolio shell v2.0") },
-  { delay: 300, make: () => text("[  OK  ] Loading network stack ......... up") },
-  { delay: 300, make: () => text("[  OK  ] Mounting /home/maruf .......... ok") },
-  { delay: 320, make: () => warn("[ WARN ] CCNA certification ............ in progress") },
+  {
+    delay: 260,
+    make: () => text("[  OK  ] Initializing portfolio shell v2.0"),
+  },
+  {
+    delay: 300,
+    make: () => text("[  OK  ] Loading network stack ......... up"),
+  },
+  {
+    delay: 300,
+    make: () => text("[  OK  ] Mounting /home/maruf .......... ok"),
+  },
+  {
+    delay: 320,
+    make: () => warn("[ WARN ] CCNA certification ............ in progress"),
+  },
 ];
 
 export function TerminalProvider({ children }) {
@@ -80,7 +98,7 @@ export function TerminalProvider({ children }) {
     () => () => {
       if (frameRef.current != null) cancelAnimationFrame(frameRef.current);
     },
-    []
+    [],
   );
 
   const [history, setHistory] = useState(() => loadHistory());
@@ -110,7 +128,7 @@ export function TerminalProvider({ children }) {
       blocksRef.current = append(blocksRef.current, blocks);
       flush();
     },
-    [flush]
+    [flush],
   );
 
   const clear = useCallback(() => {
@@ -183,7 +201,7 @@ export function TerminalProvider({ children }) {
       },
       getInterceptor: () => interceptorRef.current,
     }),
-    [print, clear, navigate, setTheme, flush]
+    [print, clear, navigate, setTheme, flush],
   );
 
   /* ---------- prompt ---------- */
@@ -228,7 +246,7 @@ export function TerminalProvider({ children }) {
         setBusy(false);
       }
     },
-    [makeCtx, print, prompt]
+    [makeCtx, print, prompt],
   );
 
   /** Ctrl+C — collapses any pending sleep so a stream ends now. */
@@ -258,7 +276,7 @@ export function TerminalProvider({ children }) {
     });
 
     const hint = muted(
-      "Type `help` to get started, or `subnet 10.0.0.0/24` to see something useful."
+      "Type `help` to get started, or `subnet 10.0.0.0/24` to see something useful.",
     );
 
     if (prefersReducedMotion()) {
@@ -302,8 +320,28 @@ export function TerminalProvider({ children }) {
     // blocksRef.current is swapped wholesale on every print, so the
     // forced rerender is what makes this memo produce a fresh value.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [history, cwd, prompt, busy, booted, overlayOpen, run, abort, print, clear, clearHistory, boot, skipBoot, makeCtx, blocksRef.current]
+    [
+      history,
+      cwd,
+      prompt,
+      busy,
+      booted,
+      overlayOpen,
+      run,
+      abort,
+      print,
+      clear,
+      clearHistory,
+      boot,
+      skipBoot,
+      makeCtx,
+      blocksRef.current,
+    ],
   );
 
-  return <TerminalContext.Provider value={value}>{children}</TerminalContext.Provider>;
+  return (
+    <TerminalContext.Provider value={value}>
+      {children}
+    </TerminalContext.Provider>
+  );
 }

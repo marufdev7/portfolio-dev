@@ -31,8 +31,10 @@ export default function TerminalEmbed({ className = "" }) {
 
       <p className="mt-3 text-sm text-muted">
         Real math, not canned answers. Try{" "}
-        <code className="font-mono text-net">vlsm 192.168.1.0/24 60 28 12 5</code> or{" "}
-        <code className="font-mono text-net">show ip route</code>.
+        <code className="font-mono text-net">
+          vlsm 192.168.1.0/24 60 28 12 5
+        </code>{" "}
+        or <code className="font-mono text-net">show ip route</code>.
       </p>
     </div>
   );

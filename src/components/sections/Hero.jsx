@@ -35,11 +35,14 @@ export default function Hero() {
           {...rise(0.06)}
           className="mt-5 max-w-[18ch] font-display text-4xl font-semibold leading-[1.08] tracking-tight text-text sm:text-5xl md:text-6xl"
         >
-          Aspiring <span className="text-net">network engineer</span>, built on a
-          frontend foundation.
+          Aspiring <span className="text-net">network engineer</span>, built on
+          a frontend foundation.
         </motion.h1>
 
-        <motion.p {...rise(0.12)} className="mt-6 max-w-[60ch] text-lg leading-relaxed text-muted">
+        <motion.p
+          {...rise(0.12)}
+          className="mt-6 max-w-[60ch] text-lg leading-relaxed text-muted"
+        >
           {profile.tagline}
         </motion.p>
 
@@ -66,7 +69,9 @@ export default function Hero() {
                   delay={0.32 + i * 0.08}
                   className="block font-display text-2xl font-semibold text-text md:text-3xl"
                 />
-                <span className="mt-1 block text-sm text-muted">{item.label}</span>
+                <span className="mt-1 block text-sm text-muted">
+                  {item.label}
+                </span>
               </dd>
             </div>
           ))}
@@ -74,10 +79,14 @@ export default function Hero() {
 
         <motion.p {...rise(0.3)} className="mt-8 font-mono text-xs text-faint">
           press{" "}
-          <kbd className="rounded border border-line px-1.5 py-0.5 text-muted">Ctrl</kbd>
+          <kbd className="rounded border border-line px-1.5 py-0.5 text-muted">
+            Ctrl
+          </kbd>
           <span className="px-1">+</span>
-          <kbd className="rounded border border-line px-1.5 py-0.5 text-muted">K</kbd> for the
-          terminal, or{" "}
+          <kbd className="rounded border border-line px-1.5 py-0.5 text-muted">
+            K
+          </kbd>{" "}
+          for the terminal, or{" "}
           <Link to="/network/terminal" className="text-net hover:underline">
             open it full screen
           </Link>

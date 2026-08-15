@@ -31,13 +31,16 @@ const MAILTO_MAX = 1900;
 
 const buildSubject = (v) => `Portfolio — ${v.name.trim()}`;
 
-const buildBody = (v) => `${v.message.trim()}\n\n— ${v.name.trim()}\n${v.email.trim()}`;
+const buildBody = (v) =>
+  `${v.message.trim()}\n\n— ${v.name.trim()}\n${v.email.trim()}`;
 
 function buildMailto(v) {
   const subject = encodeURIComponent(buildSubject(v));
   const body = encodeURIComponent(buildBody(v));
   const full = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-  return full.length > MAILTO_MAX ? `mailto:${profile.email}?subject=${subject}` : full;
+  return full.length > MAILTO_MAX
+    ? `mailto:${profile.email}?subject=${subject}`
+    : full;
 }
 
 /**
@@ -109,7 +112,10 @@ export default function ContactForm() {
     try {
       const response = await fetch(ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
           access_key: ACCESS_KEY,
           subject: buildSubject(values),
@@ -128,7 +134,9 @@ export default function ContactForm() {
 
       const data = await response.json().catch(() => ({}));
       if (!response.ok || !data.success) {
-        throw new Error(data.message || `The relay returned ${response.status}.`);
+        throw new Error(
+          data.message || `The relay returned ${response.status}.`,
+        );
       }
 
       setStatus("sent");
@@ -249,7 +257,8 @@ export default function ContactForm() {
         </Button>
         {status === "idle" && (
           <p className="text-sm text-faint">
-            Goes straight to my inbox — no mail app needed. I usually reply within a day.
+            Goes straight to my inbox — no mail app needed. I usually reply
+            within a day.
           </p>
         )}
       </div>
@@ -259,7 +268,9 @@ export default function ContactForm() {
       <div aria-live="polite">
         {status === "sent" && (
           <div className="rounded-md border border-net/40 bg-surface-raise p-4 text-sm">
-            <p className="text-text">Sent — thanks. I&apos;ll get back to you within a day.</p>
+            <p className="text-text">
+              Sent — thanks. I&apos;ll get back to you within a day.
+            </p>
           </div>
         )}
 
@@ -267,19 +278,30 @@ export default function ContactForm() {
           <div className="rounded-md border border-warn/40 bg-surface-raise p-4 text-sm">
             <p className="text-text">That didn&apos;t go through. {failure}</p>
             <p className="mt-2 text-muted">
-              I tried to open your mail app instead. If nothing happened, copy the message below
-              and send it to{" "}
-              <a href={`mailto:${profile.email}`} className="text-accent hover:underline">
+              I tried to open your mail app instead. If nothing happened, copy
+              the message below and send it to{" "}
+              <a
+                href={`mailto:${profile.email}`}
+                className="text-accent hover:underline"
+              >
                 {profile.email}
               </a>
               .
             </p>
 
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              <Button type="button" variant="outline" size="sm" onClick={copyDraft}>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={copyDraft}
+              >
                 {copied ? "Copied" : "Copy the message"}
               </Button>
-              <a href={buildMailto(values)} className="text-sm text-muted hover:text-accent">
+              <a
+                href={buildMailto(values)}
+                className="text-sm text-muted hover:text-accent"
+              >
                 Open in mail app
               </a>
             </div>

@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { Block } from "../../terminal/ansi";
 import { complete } from "../../terminal/completion";
 import { navigate as walkHistory, reverseSearch } from "../../terminal/history";
@@ -19,7 +25,14 @@ import { useTerminal } from "../../hooks/useTerminal";
    --------------------------------------------------------------- */
 
 /** One-tap commands for phones (§6.6). */
-const CHIPS = ["help", "subnet 10.0.0.0/24", "projects", "ping google.com", "quiz", "clear"];
+const CHIPS = [
+  "help",
+  "subnet 10.0.0.0/24",
+  "projects",
+  "ping google.com",
+  "quiz",
+  "clear",
+];
 
 export default function TerminalView({
   variant = "embedded",
@@ -99,13 +112,17 @@ export default function TerminalView({
       setGhost("");
       return;
     }
-    const fromHistory = [...history].reverse().find((h) => h.startsWith(value) && h !== value);
+    const fromHistory = [...history]
+      .reverse()
+      .find((h) => h.startsWith(value) && h !== value);
     if (fromHistory) {
       setGhost(fromHistory.slice(value.length));
       return;
     }
     if (!value.includes(" ")) {
-      const name = commandNames().find((c) => c.startsWith(value) && c !== value);
+      const name = commandNames().find(
+        (c) => c.startsWith(value) && c !== value,
+      );
       setGhost(name ? name.slice(value.length) : "");
       return;
     }
@@ -141,7 +158,7 @@ export default function TerminalView({
       pinnedRef.current = true;
       await run(line);
     },
-    [run]
+    [run],
   );
 
   const insertChip = useCallback(
@@ -155,7 +172,7 @@ export default function TerminalView({
         syncCaret();
       });
     },
-    [syncCaret]
+    [syncCaret],
   );
 
   /* ---------- keys (§6.5) ---------- */
@@ -169,7 +186,10 @@ export default function TerminalView({
 
       /* --- reverse search owns the keyboard while it's open --- */
       if (search) {
-        if (event.key === "Escape" || (ctrl && event.key.toLowerCase() === "g")) {
+        if (
+          event.key === "Escape" ||
+          (ctrl && event.key.toLowerCase() === "g")
+        ) {
           event.preventDefault();
           setSearch(null);
           return;
@@ -259,13 +279,14 @@ export default function TerminalView({
             history,
             historyIndexRef.current,
             event.key === "ArrowUp" ? "up" : "down",
-            draftRef.current
+            draftRef.current,
           );
           historyIndexRef.current = step.index;
           setValue(step.value);
           requestAnimationFrame(() => {
             const input = inputRef.current;
-            if (input) input.setSelectionRange(step.value.length, step.value.length);
+            if (input)
+              input.setSelectionRange(step.value.length, step.value.length);
             syncCaret();
           });
           return;
@@ -293,7 +314,10 @@ export default function TerminalView({
             setValue(result.value);
             lastTabRef.current = "";
             requestAnimationFrame(() => {
-              inputRef.current?.setSelectionRange(result.value.length, result.value.length);
+              inputRef.current?.setSelectionRange(
+                result.value.length,
+                result.value.length,
+              );
               syncCaret();
             });
             return;
@@ -301,7 +325,10 @@ export default function TerminalView({
           // Nothing to fill: a second Tab on the same line lists the
           // candidates, exactly as bash does.
           if (result.suggestions.length > 1 && lastTabRef.current === value) {
-            print([text(`${prompt} ${value}`), muted(result.suggestions.join("   "))]);
+            print([
+              text(`${prompt} ${value}`),
+              muted(result.suggestions.join("   ")),
+            ]);
             lastTabRef.current = "";
           } else {
             lastTabRef.current = value;
@@ -337,13 +364,15 @@ export default function TerminalView({
       ghost,
       makeCtx,
       onRequestClose,
-    ]
+    ],
   );
 
   const before = value.slice(0, caret);
   const at = value.slice(caret, caret + 1);
   const after = value.slice(caret + 1);
-  const searchHit = search ? reverseSearch(history, search.query, search.skip) : null;
+  const searchHit = search
+    ? reverseSearch(history, search.query, search.skip)
+    : null;
 
   /* Height belongs on the *panel*, not on the scrollback. Putting it on
      the scrollback looked equivalent and was not: `flex-1` computes to
@@ -403,12 +432,18 @@ export default function TerminalView({
         className={`terminal-scroll ${chaining} min-h-0 flex-1 overflow-y-auto px-3 py-3 sm:px-4`}
       >
         <p className="sr-only" id="terminal-help">
-          Interactive terminal. Type a command and press Enter. Press Tab to complete, up and down
-          arrows for history, and Control C to cancel. Everything here is also available as a normal
-          page — see the links below the terminal.
+          Interactive terminal. Type a command and press Enter. Press Tab to
+          complete, up and down arrows for history, and Control C to cancel.
+          Everything here is also available as a normal page — see the links
+          below the terminal.
         </p>
 
-        <div role="log" aria-live="polite" aria-atomic="false" aria-relevant="additions">
+        <div
+          role="log"
+          aria-live="polite"
+          aria-atomic="false"
+          aria-relevant="additions"
+        >
           {blocks.map((block) => (
             <Block key={block.id} block={block} />
           ))}
@@ -416,7 +451,10 @@ export default function TerminalView({
 
         {/* Input line */}
         <div className="mt-1 flex items-start gap-2">
-          <label htmlFor="terminal-input" className="shrink-0 whitespace-pre text-net">
+          <label
+            htmlFor="terminal-input"
+            className="shrink-0 whitespace-pre text-net"
+          >
             {search ? `(reverse-i-search)\`${search.query}':` : prompt}
           </label>
 

@@ -25,7 +25,7 @@ function setup() {
           <TerminalView />
         </TerminalProvider>
       </ThemeProvider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
   return { user, input: screen.getByLabelText(/terminal input/i) };
 }
@@ -61,7 +61,9 @@ describe("terminal view", () => {
     await type(user, input, "pign R1");
 
     await waitFor(() => {
-      expect(screen.getByRole("log")).toHaveTextContent(/command not found: pign/i);
+      expect(screen.getByRole("log")).toHaveTextContent(
+        /command not found: pign/i,
+      );
     });
     expect(screen.getByRole("log")).toHaveTextContent("ping");
   });

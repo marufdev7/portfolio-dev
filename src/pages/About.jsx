@@ -12,11 +12,7 @@ import { journey } from "../data/timeline";
 export default function About() {
   return (
     <>
-      <Seo
-        title="About"
-        description={about.intro}
-        path="/about"
-      />
+      <Seo title="About" description={about.intro} path="/about" />
 
       <PageShell
         eyebrow="dev / about"
@@ -25,7 +21,7 @@ export default function About() {
         actions={
           <Button href={profile.resumeUrl} variant="outline">
             <Download size={16} aria-hidden="true" />
-            Résumé (PDF)
+            CV (PDF)
           </Button>
         }
       >
@@ -37,11 +33,13 @@ export default function About() {
         </div>
 
         <Section
-          index="01 / the honest question"
-          title="Why a frontend portfolio has a networking half"
+          index="01 / the connection"
+          title="Why frontend is still part of my path"
         >
           <Reveal>
-            <p className="max-w-[72ch] text-lg leading-relaxed text-muted">{about.whyBoth}</p>
+            <p className="max-w-[72ch] text-lg leading-relaxed text-muted">
+              {about.whyBoth}
+            </p>
           </Reveal>
         </Section>
 

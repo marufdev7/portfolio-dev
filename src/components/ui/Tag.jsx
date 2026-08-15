@@ -38,7 +38,13 @@ export default function Tag({
 
   if (onClick) {
     return (
-      <button type="button" onClick={onClick} aria-pressed={active} className={classes} {...rest}>
+      <button
+        type="button"
+        onClick={onClick}
+        aria-pressed={active}
+        className={classes}
+        {...rest}
+      >
         {children}
       </button>
     );

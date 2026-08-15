@@ -10,14 +10,18 @@ export default function ContactCta() {
       <Section
         index="03 / next"
         title="Hiring, or just curious?"
-        lead="I'm open to frontend roles and freelance work — and happy to talk about either half of this site. Replies usually land within a day."
+        lead="I'm focused on network engineering opportunities and building toward network automation. Replies usually land within a day."
       >
         <Reveal className="flex flex-wrap items-center gap-3">
           <Button to="/contact" size="lg">
             Get in touch
           </Button>
           <EmailActions>
-            <Button href={`mailto:${profile.email}`} variant="outline" size="lg">
+            <Button
+              href={`mailto:${profile.email}`}
+              variant="outline"
+              size="lg"
+            >
               {profile.email}
             </Button>
           </EmailActions>

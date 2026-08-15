@@ -51,8 +51,12 @@ export default function Timeline({ items, tone = "dev" }) {
               </Badge>
             )}
           </div>
-          <h3 className="mt-1.5 font-display text-lg font-semibold text-text">{item.title}</h3>
-          <p className="mt-2 max-w-[68ch] leading-relaxed text-muted">{item.detail}</p>
+          <h3 className="mt-1.5 font-display text-lg font-semibold text-text">
+            {item.title}
+          </h3>
+          <p className="mt-2 max-w-[68ch] leading-relaxed text-muted">
+            {item.detail}
+          </p>
         </Reveal>
       ))}
     </ol>

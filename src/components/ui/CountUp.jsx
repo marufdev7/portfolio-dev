@@ -17,7 +17,12 @@ import { animate, useInView, useReducedMotion } from "framer-motion";
 
 const LEADING_NUMBER = /^(\d+(?:\.\d+)?)(.*)$/s;
 
-export default function CountUp({ value, duration = 1.1, delay = 0, className = "" }) {
+export default function CountUp({
+  value,
+  duration = 1.1,
+  delay = 0,
+  className = "",
+}) {
   const reduce = useReducedMotion();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
@@ -31,7 +36,7 @@ export default function CountUp({ value, duration = 1.1, delay = 0, className = 
   // Start at zero so the count has somewhere to travel from; non-numeric
   // values and reduced motion skip straight to the final text.
   const [display, setDisplay] = useState(() =>
-    target === null || reduce ? text : `0${suffix}`
+    target === null || reduce ? text : `0${suffix}`,
   );
 
   useEffect(() => {

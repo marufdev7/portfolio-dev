@@ -31,7 +31,10 @@ export default function Section({
       {(index || title || lead) && (
         <Reveal className="mb-10 md:mb-14">
           {index && (
-            <p aria-hidden="true" className={`mb-3 font-mono text-xs tracking-widest ${accent}`}>
+            <p
+              aria-hidden="true"
+              className={`mb-3 font-mono text-xs tracking-widest ${accent}`}
+            >
               {index}
             </p>
           )}
@@ -40,7 +43,11 @@ export default function Section({
               {title}
             </Heading>
           )}
-          {lead && <p className="mt-4 max-w-[72ch] leading-relaxed text-muted">{lead}</p>}
+          {lead && (
+            <p className="mt-4 max-w-[72ch] leading-relaxed text-muted">
+              {lead}
+            </p>
+          )}
         </Reveal>
       )}
       {children}

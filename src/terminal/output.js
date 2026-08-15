@@ -64,7 +64,7 @@ export const keyValue = (pairs, meta) => make("keyvalue", pairs, meta);
  * of leaving the site.
  */
 export const link = (label, href, opts = {}) =>
-  make("link", { label, href, ...opts });
+    make("link", { label, href, ...opts });
 
 /** Escape hatch for the few commands that need real markup (`handshake`). */
 export const jsx = (node) => make("jsx", node);
@@ -79,9 +79,9 @@ export const blank = () => make("text", "");
  * @returns {OutputBlock[]}
  */
 export function append(current, incoming) {
-  const additions = Array.isArray(incoming) ? incoming : [incoming];
-  const next = current.concat(additions);
-  return next.length > MAX_BLOCKS ? next.slice(next.length - MAX_BLOCKS) : next;
+    const additions = Array.isArray(incoming) ? incoming : [incoming];
+    const next = current.concat(additions);
+    return next.length > MAX_BLOCKS ? next.slice(next.length - MAX_BLOCKS) : next;
 }
 
 /**
@@ -91,10 +91,10 @@ export function append(current, incoming) {
  * @returns {OutputBlock[]}
  */
 export function toBlocks(value) {
-  if (value == null) return [];
-  if (Array.isArray(value)) return value.flatMap(toBlocks);
-  if (typeof value === "string") return [text(value)];
-  if (typeof value === "object" && value.kind && value.id) return [value];
-  // A React element or anything else renderable.
-  return [jsx(value)];
+    if (value == null) return [];
+    if (Array.isArray(value)) return value.flatMap(toBlocks);
+    if (typeof value === "string") return [text(value)];
+    if (typeof value === "object" && value.kind && value.id) return [value];
+    // A React element or anything else renderable.
+    return [jsx(value)];
 }

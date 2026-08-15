@@ -22,13 +22,13 @@ export const SCROLL_OFFSET = 80;
 
 /** @returns {ScrollBehavior} */
 function behavior(smooth) {
-  return smooth && !prefersReducedMotion() ? "smooth" : "instant";
+    return smooth && !prefersReducedMotion() ? "smooth" : "instant";
 }
 
 /** Jump to the top of the document. Instant by default — see above. */
 export function scrollToTop({ smooth = false } = {}) {
-  if (typeof window === "undefined") return;
-  window.scrollTo({ top: 0, left: 0, behavior: behavior(smooth) });
+    if (typeof window === "undefined") return;
+    window.scrollTo({ top: 0, left: 0, behavior: behavior(smooth) });
 }
 
 /**
@@ -43,11 +43,11 @@ export function scrollToTop({ smooth = false } = {}) {
  * @returns {boolean} whether the target existed and was scrolled to
  */
 export function scrollToElement(target, { smooth = true } = {}) {
-  if (typeof window === "undefined" || !target) return false;
+    if (typeof window === "undefined" || !target) return false;
 
-  const top = target.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
-  window.scrollTo({ top: Math.max(0, top), left: 0, behavior: behavior(smooth) });
-  return true;
+    const top = target.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
+    window.scrollTo({ top: Math.max(0, top), left: 0, behavior: behavior(smooth) });
+    return true;
 }
 
 /**
@@ -57,10 +57,10 @@ export function scrollToElement(target, { smooth = true } = {}) {
  * @returns {boolean} false when the hash is empty or names nothing
  */
 export function scrollToHash(hash, options) {
-  if (!hash || hash === "#") return false;
+    if (!hash || hash === "#") return false;
 
-  // The id can contain characters that are legal in a fragment but not
-  // in a selector, so look it up by id rather than via querySelector.
-  const id = decodeURIComponent(hash.replace(/^#/, ""));
-  return scrollToElement(document.getElementById(id), options);
+    // The id can contain characters that are legal in a fragment but not
+    // in a selector, so look it up by id rather than via querySelector.
+    const id = decodeURIComponent(hash.replace(/^#/, ""));
+    return scrollToElement(document.getElementById(id), options);
 }

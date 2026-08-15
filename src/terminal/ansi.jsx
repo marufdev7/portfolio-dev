@@ -41,13 +41,17 @@ function inline(value) {
       </span>
     ) : (
       part
-    )
+    ),
   );
 }
 
 /** Wide fixed-width output scrolls sideways rather than wrapping (§6.6). */
 function Pre({ children, className = "" }) {
-  return <div className={`terminal-pre terminal-scroll ${className}`}>{children}</div>;
+  return (
+    <div className={`terminal-pre terminal-scroll ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 function Prompt({ input, prompt }) {
@@ -60,7 +64,8 @@ function Prompt({ input, prompt }) {
 }
 
 function LinkBlock({ label, href, internal }) {
-  const className = "text-net underline decoration-net/40 underline-offset-4 hover:decoration-net";
+  const className =
+    "text-net underline decoration-net/40 underline-offset-4 hover:decoration-net";
 
   if (internal) {
     return (
@@ -70,7 +75,12 @@ function LinkBlock({ label, href, internal }) {
     );
   }
   return (
-    <a href={href} target="_blank" rel="noreferrer noopener" className={className}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer noopener"
+      className={className}
+    >
       {label}
     </a>
   );
@@ -119,9 +129,14 @@ export const Block = memo(function Block({ block }) {
           {content.map(([key, value], i) => (
             <div key={i}>
               <span className="text-muted">
-                {String(key).padEnd(Math.max(...content.map(([k]) => String(k).length)))}
+                {String(key).padEnd(
+                  Math.max(...content.map(([k]) => String(k).length)),
+                )}
               </span>
-              <span className="text-text">{"  "}{String(value)}</span>
+              <span className="text-text">
+                {"  "}
+                {String(value)}
+              </span>
             </div>
           ))}
         </Pre>
@@ -138,7 +153,11 @@ export const Block = memo(function Block({ block }) {
       const value = String(content ?? "");
       // A blank block still needs to occupy a line.
       if (!value) return <div className="h-[1.4em]" aria-hidden="true" />;
-      return <div className={`whitespace-pre-wrap break-words ${tone}`}>{inline(value)}</div>;
+      return (
+        <div className={`whitespace-pre-wrap wrap-break-word ${tone}`}>
+          {inline(value)}
+        </div>
+      );
     }
   }
 });

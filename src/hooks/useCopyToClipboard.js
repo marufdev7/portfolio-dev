@@ -11,28 +11,28 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * @returns {{ copied: boolean, copy: (text: string) => Promise<boolean> }}
  */
 export function useCopyToClipboard(resetAfter = 2000) {
-  const [copied, setCopied] = useState(false);
-  const timer = useRef(null);
+    const [copied, setCopied] = useState(false);
+    const timer = useRef(null);
 
-  useEffect(() => () => clearTimeout(timer.current), []);
+    useEffect(() => () => clearTimeout(timer.current), []);
 
-  const copy = useCallback(
-    async (text) => {
-      try {
-        await navigator.clipboard.writeText(text);
-        setCopied(true);
-        clearTimeout(timer.current);
-        timer.current = setTimeout(() => setCopied(false), resetAfter);
-        return true;
-      } catch {
-        // Insecure context or denied permission. Nothing to announce —
-        // the address is visible on the button that was just clicked.
-        setCopied(false);
-        return false;
-      }
-    },
-    [resetAfter]
-  );
+    const copy = useCallback(
+        async (text) => {
+            try {
+                await navigator.clipboard.writeText(text);
+                setCopied(true);
+                clearTimeout(timer.current);
+                timer.current = setTimeout(() => setCopied(false), resetAfter);
+                return true;
+            } catch {
+                // Insecure context or denied permission. Nothing to announce —
+                // the address is visible on the button that was just clicked.
+                setCopied(false);
+                return false;
+            }
+        },
+        [resetAfter]
+    );
 
-  return { copied, copy };
+    return { copied, copy };
 }

@@ -32,10 +32,13 @@ export default function NetworkTerminal() {
           </Link>
 
           <p className="font-mono text-xs text-faint">
-            <kbd className="rounded border border-line px-1.5 py-0.5">Tab</kbd> completes ·{" "}
-            <kbd className="rounded border border-line px-1.5 py-0.5">↑</kbd> history ·{" "}
-            <kbd className="rounded border border-line px-1.5 py-0.5">Ctrl</kbd>+
-            <kbd className="rounded border border-line px-1.5 py-0.5">R</kbd> search
+            <kbd className="rounded border border-line px-1.5 py-0.5">Tab</kbd>{" "}
+            completes ·{" "}
+            <kbd className="rounded border border-line px-1.5 py-0.5">↑</kbd>{" "}
+            history ·{" "}
+            <kbd className="rounded border border-line px-1.5 py-0.5">Ctrl</kbd>
+            +<kbd className="rounded border border-line px-1.5 py-0.5">R</kbd>{" "}
+            search
           </p>
         </div>
 

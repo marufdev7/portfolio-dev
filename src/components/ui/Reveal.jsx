@@ -5,7 +5,13 @@ import { motion, useReducedMotion } from "framer-motion";
  * from the circuit grid and the terminal, close to its only motion.
  * `useReducedMotion` collapses it to a plain render (§10).
  */
-export default function Reveal({ children, delay = 0, className = "", as = "div", ...rest }) {
+export default function Reveal({
+  children,
+  delay = 0,
+  className = "",
+  as = "div",
+  ...rest
+}) {
   const reduce = useReducedMotion();
   const Motion = motion[as] ?? motion.div;
 

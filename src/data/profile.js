@@ -3,54 +3,54 @@
 // ---------------------------------------------------------------
 
 export const profile = {
-  name: "Md. Maruf Ahmed",
-  firstName: "Maruf",
-  role: "Frontend Developer",
-  /** The positioning line. Everything on the site should earn this. */
-  positioning: "Aspiring network engineer, built on a frontend foundation.",
-  tagline:
-    "I build fast, accessible React interfaces — and I understand the network they travel over.",
-  location: "Dhaka, Bangladesh", // TODO: confirm
-  email: "maruf.ahmed.dev@gmail.com",
-  github: "https://github.com/marufdev7",
-  linkedin: "https://www.linkedin.com/in/marufdev7",
-  resumeUrl: "/resume.pdf", // TODO: drop the real PDF into /public
-  available: true,
-  /** Terminal env — `whoami`, `neofetch`, and the prompt read these. */
-  shell: {
-    user: "maruf",
-    host: "portfolio",
-    codingSince: "2023-01-01",
-  },
+    name: "Md. Maruf Ahmed",
+    firstName: "Maruf",
+    role: "Aspiring Network Engineer",
+    /** The positioning line. Everything on the site should earn this. */
+    positioning: "Network-focused, working toward a career in network automation.",
+    tagline:
+        "I completed my frontend foundation and am now focused on networking, CCNA labs, and network automation.",
+    location: "Dhaka, Bangladesh", // TODO: confirm
+    email: "maruf.ahmed.dev@gmail.com",
+    github: "https://github.com/marufdev7",
+    linkedin: "https://www.linkedin.com/in/marufdev7",
+    resumeUrl: "/Maruf_Ahmed_CV.pdf",
+    available: true,
+    /** Terminal env — `whoami`, `neofetch`, and the prompt read these. */
+    shell: {
+        user: "maruf",
+        host: "portfolio",
+        codingSince: "2024-01-01",
+    },
 };
 
 export const about = {
-  intro:
-    "I'm a frontend developer who cares about the details — the load time, the tab order, the way a layout holds up on a cheap phone. I started building websites out of curiosity and stayed because shipping something real never stopped being satisfying.",
-  currentFocus:
-    "React and the modern JavaScript ecosystem — building projects end to end, from UI to deployment. Alongside that I'm working through the CCNA, which is where the second half of this site comes from.",
-  learning:
-    "Right now: subnetting until it's instant, OSPF beyond single-area, and enough Node.js to be dangerous on the backend.",
-  workStyle:
-    "I like clear requirements, honest feedback, and small iterations. I'd rather ship a solid feature this week than a perfect one never.",
-  /** Why a frontend portfolio has a networking half — asked in every interview, answered once here. */
-  whyBoth:
-    "Most frontend bugs I've chased ended up being something other than the component — a cache header, a DNS answer, a request that never left the tab. Learning the network made me a better debugger, so I stopped treating it as a side interest and started documenting it.",
+    intro:
+        "I'm a network-focused developer building toward a career in network automation. I started development in 2024, completed my frontend foundation by the end of 2025, and began the CCNA track in April 2026.",
+    currentFocus:
+        "My current focus is networking: subnetting, switching, routing, services, troubleshooting, and practical CCNA labs. My long-term goal is to become a network automation engineer.",
+    learning:
+        "Next, I am connecting network fundamentals with code through Python, automation workflows, configuration validation, and repeatable infrastructure tasks.",
+    workStyle:
+        "I like clear requirements, honest feedback, and small iterations. I'd rather ship a solid feature this week than a perfect one never.",
+    /** How the completed frontend foundation supports the networking direction. */
+    whyBoth:
+        "Frontend development gave me a strong foundation in applications, APIs, deployment, and debugging. Networking is now my main direction. I want to combine both sides to automate network tasks and build reliable tools for engineers.",
 };
 
 export const navLinks = [
-  // `end` keeps "/" from matching every route — without it react-router
-  // marks Home active on every page, since all paths start with "/".
-  { label: "Home", to: "/", end: true },
-  { label: "Projects", to: "/projects" },
-  { label: "Network", to: "/network" },
-  { label: "About", to: "/about" },
-  { label: "Contact", to: "/contact" },
+    // `end` keeps "/" from matching every route — without it react-router
+    // marks Home active on every page, since all paths start with "/".
+    { label: "Home", to: "/", end: true },
+    { label: "Projects", to: "/projects" },
+    { label: "Network", to: "/network" },
+    { label: "About", to: "/about" },
+    { label: "Contact", to: "/contact" },
 ];
 
 /** Home-page snapshot strip. Honest, checkable numbers only — no vanity stats. */
 export const snapshot = [
-  { value: "3", label: "Shipped case studies" },
-  { value: "5", label: "Documented labs" },
-  { value: "CCNA", label: "In progress" },
+    { value: "5", label: "Shipped case studies" },
+    { value: "5", label: "Documented labs" },
+    { value: "CCNA", label: "In progress" },
 ];

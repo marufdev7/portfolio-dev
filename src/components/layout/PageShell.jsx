@@ -37,13 +37,19 @@ export default function PageShell({
         >
           <header className="max-w-[72ch]">
             {eyebrow && (
-              <p className={`mb-3 font-mono text-xs tracking-widest ${accent}`}>{eyebrow}</p>
+              <p className={`mb-3 font-mono text-xs tracking-widest ${accent}`}>
+                {eyebrow}
+              </p>
             )}
             <h1 className="font-display text-4xl font-semibold tracking-tight text-text md:text-5xl">
               {title}
             </h1>
-            {lead && <p className="mt-5 text-lg leading-relaxed text-muted">{lead}</p>}
-            {actions && <div className="mt-7 flex flex-wrap gap-3">{actions}</div>}
+            {lead && (
+              <p className="mt-5 text-lg leading-relaxed text-muted">{lead}</p>
+            )}
+            {actions && (
+              <div className="mt-7 flex flex-wrap gap-3">{actions}</div>
+            )}
           </header>
 
           {children}
