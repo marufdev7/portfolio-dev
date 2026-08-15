@@ -1,19 +1,11 @@
-
-# Md. Maruf Ahmed — Portfolio
+# Md. Maruf Ahmed - Portfolio
 
 **Live site:** https://maruf-ahmed-dev.netlify.app
 
-```
-$ whoami
-Aspiring network engineer, built on a frontend foundation.
+This is my personal portfolio and working log. I started development in 2024,
+completed my frontend foundation by the end of 2025, and began the CCNA track
+in April 2026.
 
-```
-
-Two halves: React case studies on one side, CCNA lab notes and a
-playable network terminal on the other. Try `subnet 10.0.0.0/24`.
-
-```
-$ help 
-
-```
-For command
+The portfolio includes real React projects, network labs, CCNA notes, and an
+interactive networking terminal. My current direction is network engineering,
+with a long-term goal of becoming a network automation engineer.

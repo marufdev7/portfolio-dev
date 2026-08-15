@@ -36,7 +36,7 @@ export default function TerminalOverlay() {
     <AnimatePresence>
       {overlayOpen && (
         <motion.div
-          className="fixed inset-0 z-[70] flex items-start justify-center bg-bg/80 p-4 pt-[10vh] backdrop-blur-sm"
+          className="fixed inset-0 z-70 flex items-start justify-center bg-bg/80 p-4 pt-[10vh] backdrop-blur-sm"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={reduce ? undefined : { opacity: 0 }}

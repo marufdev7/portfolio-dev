@@ -26,7 +26,7 @@ export default function Table({
     <div
       className={`terminal-scroll -mx-4 overflow-x-auto overflow-y-hidden px-4 sm:mx-0 sm:px-0 ${className}`}
     >
-      <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
+      <table className="w-full min-w-lg border-collapse text-left text-sm">
         {caption && (
           <caption className="pb-3 text-left text-sm text-muted">
             {caption}

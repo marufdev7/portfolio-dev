@@ -33,7 +33,7 @@ export default function EmailActions({ className = "", children }) {
         onClick={() => copy(profile.email)}
         aria-label={copied ? "Address copied" : `Copy ${profile.email}`}
         className={
-          "inline-flex items-center gap-1.5 rounded-md border border-line px-3 py-2 " +
+          "inline-flex h-full min-h-12 shrink-0 items-center gap-1.5 rounded-md border border-line px-3 " +
           "font-mono text-xs text-muted transition-colors duration-200 " +
           "hover:border-accent/40 hover:text-accent focus-visible:border-accent " +
           "focus-visible:outline-none"

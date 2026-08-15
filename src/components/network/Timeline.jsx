@@ -34,12 +34,12 @@ export default function Timeline({ items, tone = "dev" }) {
         <Reveal key={item.title} as="li" delay={i * 0.05} className="relative">
           <span
             aria-hidden="true"
-            className={`absolute -left-[1.9375rem] top-1.5 h-3 w-3 rounded-full border-2 ${dot[tone][item.status]}`}
+            className={`absolute -left-7.75 top-1.5 h-3 w-3 rounded-full border-2 ${dot[tone][item.status]}`}
           />
           {item.status === "current" && (
             <span
               aria-hidden="true"
-              className={`absolute -left-[1.9375rem] top-1.5 h-3 w-3 animate-ping rounded-full ${tone === "net" ? "bg-net" : "bg-accent"} opacity-50 motion-reduce:hidden`}
+              className={`absolute -left-7.75 top-1.5 h-3 w-3 animate-ping rounded-full ${tone === "net" ? "bg-net" : "bg-accent"} opacity-50 motion-reduce:hidden`}
             />
           )}
 
